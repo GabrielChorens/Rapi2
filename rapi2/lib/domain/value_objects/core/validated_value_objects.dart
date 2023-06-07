@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
-
+import 'package:meta/meta.dart';
 import 'errors/unexpected_value_error.dart';
 import 'failures/value_failures.dart';
 
-abstract class ValidatedValueObject<T> {
+@immutable
+abstract class ValidatedValueObject<T>{
   const ValidatedValueObject();
   Either<ValueFailure, T> get value;
 
@@ -27,4 +28,5 @@ abstract class ValidatedValueObject<T> {
 
   @override
   String toString() => 'Value($value)';
+
 }

@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rapi2/domain/value_objects/business_value_objects/rating.dart';
+import 'package:rapi2/domain/value_objects/bussiness_value_objects.dart';
 import 'package:rapi2/domain/value_objects/core/failures/value_failures.dart';
 
 void main() {
   group('Rating', () {
-    test('should return ValueFailure when input is less than 0', () {
+    test('Should return ValueFailure when input is less than 0', () {
       // Arrange
       const int invalidInput = -1;
 
@@ -15,7 +15,7 @@ void main() {
       expect(rating.value.fold((f) => f, (_) => null), isA<ValueFailure>());
     });
 
-    test('should return ValueFailure when input is greater than 5', () {
+    test('Should return ValueFailure when input is greater than 5', () {
       // Arrange
       const int invalidInput = 6;
 
@@ -26,7 +26,7 @@ void main() {
       expect(rating.value.fold((f) => f, (_) => null), isA<ValueFailure>());
     });
 
-    test('should instantiate Rating when input is within valid range', () {
+    test('Should instantiate Rating when input is within valid range', () {
       // Arrange
       const int validInput = 3;
 

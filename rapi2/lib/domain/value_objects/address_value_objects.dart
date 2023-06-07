@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../core/failures/value_failures.dart';
-import '../core/validated_value_objects.dart';
+import 'core/failures/value_failures.dart';
+import 'core/validated_value_objects.dart';
 
-part 'coordinate.freezed.dart';
+part 'address_value_objects.freezed.dart';
 
+///A simple data class that represents a raw address. It is used to validate the address before creating the Address value object.
 @freezed
 abstract class RawCoordinate with _$RawCoordinate{
   const factory RawCoordinate({
@@ -13,6 +14,9 @@ abstract class RawCoordinate with _$RawCoordinate{
   }) = _RawCoordinate;
 }
 
+///A value object that represents a coordinate. It validates if the latitude and longitude are valid.
+///The latitude must be between -90 and 90, and the longitude must be between -180 and 180.
+///If the coordinates are invalid, it returns a ValueFailure.
 class Coordinate extends ValidatedValueObject<RawCoordinate> {
 
   @override
@@ -32,5 +36,3 @@ class Coordinate extends ValidatedValueObject<RawCoordinate> {
 
   const Coordinate._(this.value);
 }
-
-

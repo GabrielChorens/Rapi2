@@ -1,114 +1,75 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:rapi2/domain/value_objects/user_value_objects/number_as_string.dart';
-import 'package:rapi2/domain/value_objects/user_value_objects/user_value_objects_barrel.dart';
 
 import '../../domain/entities/user.dart';
+import '../../domain/value_objects/user_value_objects.dart';
 
 part 'user_dto.freezed.dart';
 
+///A data transfer object that represents an user.
 @freezed
 abstract class UserDTO implements _$UserDTO {
   const UserDTO._();
-
+  ///Default constructor for the [UserDTO] data transfer object.
+  ///It contains the following required fields: [String] name, [String] lastName, [String] phoneNumber, [String] callCode and [String] countryCode.
+  ///It contains the following optional fields: [String] email, [String] authToken, [String] currency and [String] profilePictureURL.
   const factory UserDTO({
     required final String name,
     required final String lastName,
     required final String phoneNumber,
     required final String callCode,
     required final String countryCode,
-    required final String email,
-    final String? password,
-    required final String authToken,
-    required final String currency,
+    final String? email,
+    final String? authToken,
+    final String? currency,
     final String? profilePictureURL,
   }) = _UserDTO;
 
+  ///Converts a [User] entity to a [UserDTO] data transfer object.
   factory UserDTO.fromDomain(User user) {
     return UserDTO(
-      name: user.name,
-      lastName: user.lastName,
+      name: user.fullName.firstName,
+      lastName: user.fullName.lastName,
       phoneNumber: user.phoneNumber.phoneNumber.getOrCrash(),
       callCode: user.phoneNumber.callCode.getOrCrash(),
       countryCode: user.phoneNumber.countryCode,
-      email: user.email.getOrCrash(),
-      password: user.password.getOrCrash(),
-      currency: user.currency.getOrCrash(),
+      email: user.email?.getOrCrash(),
+      currency: user.currency?.getOrCrash(),
       authToken: user.authToken,
       profilePictureURL: user.profilePictureURL,
     );
   }
 
-  User toDomainFromLogin(Password password) {
+  ///Converts a [UserDTO] data transfer object to a [User] entity.
+  User toDomain() {
+
+    final email = this.email == null ? null : Email(this.email!);
+    final currency = this.currency == null ? null : Currencies(this.currency!);
+
     return User(
-      name: name,
-      lastName: lastName,
+      fullName: Name(firstName: name, lastName: lastName),
       phoneNumber: PhoneNumber(
           callCode: NumberAsString(callCode),
           phoneNumber: NumberAsString(phoneNumber),
           countryCode: countryCode),
-      email: Email(email),
-      password: password,
-      currency: Currencies(currency),
+      email: email,
+      currency: currency,
       authToken: authToken,
       profilePictureURL: profilePictureURL,
     );
   }
 
-  Map<String, dynamic> toJsonLogin() => <String, dynamic>{
-        'phoneNumber': phoneNumber,
-        'callCode': callCode,
-        'countryCode': countryCode,
-        'password': password,
-        'firebaseToken': FirebaseToken.defaultFirebaseToken,
-      };
-
-  factory UserDTO.fromJsonLogin(Map<String, dynamic> json) {
+  ///Converts a JSON object to a [UserDTO] data transfer object.
+  factory UserDTO.fromJson(Map<String, dynamic> json) {
     return UserDTO(
       name: json['name'] as String,
-      lastName: json['lastName'] as String,
-      phoneNumber: json['phoneNumber'] as String,
-      callCode: json['callCode'] as String,
-      countryCode: json['countryCode'] as String,
-      email: json['email'] as String,
-      currency: json['currency'] as String,
-      authToken: json['authToken'] as String,
-      profilePictureURL: json['profilePictureURL'] as String?,
+      lastName: json['last_name'] as String,
+      phoneNumber: json['phone_number'] as String,
+      callCode: json['call_code'] as String,
+      countryCode: json['country_code'] as String,
+      email: json['email'] as String?,
+      authToken: json['auth_token'] as String?,
+      currency: json['currency'] as String?,
+      profilePictureURL: json['profile_picture'] as String?,
     );
   }
-
-  Map<String, dynamic> toJsonSignUp() => <String, dynamic>{
-        'name': name,
-        'lastName': lastName,
-        'phoneNumber': phoneNumber,
-        'callCode': callCode,
-        'countryCode': countryCode,
-        'email': email,
-        'password': password,
-        'firebaseToken': FirebaseToken.defaultFirebaseToken,
-      };
-
-  Map<String, dynamic> updateCurrencyToJson() => <String, dynamic>{
-        'currency': currency,
-      };
-      
-  Map<String, dynamic> updateNameToJson() => <String, dynamic>{
-        'name': name,
-        'lastName': lastName,
-      };
-
-  Map<String, dynamic> updatePhoneNumberToJson() => <String, dynamic>{
-        'phoneNumber': phoneNumber,
-        'callCode': callCode,
-        'countryCode': countryCode,
-      };
-
-  Map<String, dynamic> updatePasswordToJson(String newPassword) =>
-      <String, dynamic>{
-        'currentPassword': password,
-        'newPassword': newPassword,
-      };
-
-  Map<String, dynamic> updateEmailToJson() => <String, dynamic>{
-        'email': email,
-      };
 }

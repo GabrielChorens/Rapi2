@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
-import '../core/failures/value_failures.dart';
-import '../core/validated_value_objects.dart';
+import 'core/failures/value_failures.dart';
+import 'core/validated_value_objects.dart';
 
+///A value object that represents a rating. It validates if the rating is between 0 and 5.
+///If the rating is invalid, it returns a ValueFailure.
+///
 class Rating extends ValidatedValueObject<int> {
 
   @override

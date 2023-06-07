@@ -21,10 +21,9 @@ mixin _$UserDTO {
   String get phoneNumber => throw _privateConstructorUsedError;
   String get callCode => throw _privateConstructorUsedError;
   String get countryCode => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
-  String get authToken => throw _privateConstructorUsedError;
-  String get currency => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  String? get authToken => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
   String? get profilePictureURL => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -42,10 +41,9 @@ abstract class $UserDTOCopyWith<$Res> {
       String phoneNumber,
       String callCode,
       String countryCode,
-      String email,
-      String? password,
-      String authToken,
-      String currency,
+      String? email,
+      String? authToken,
+      String? currency,
       String? profilePictureURL});
 }
 
@@ -67,10 +65,9 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? phoneNumber = null,
     Object? callCode = null,
     Object? countryCode = null,
-    Object? email = null,
-    Object? password = freezed,
-    Object? authToken = null,
-    Object? currency = null,
+    Object? email = freezed,
+    Object? authToken = freezed,
+    Object? currency = freezed,
     Object? profilePictureURL = freezed,
   }) {
     return _then(_value.copyWith(
@@ -94,22 +91,18 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String?,
-      authToken: null == authToken
+      authToken: freezed == authToken
           ? _value.authToken
           : authToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      currency: null == currency
+              as String?,
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       profilePictureURL: freezed == profilePictureURL
           ? _value.profilePictureURL
           : profilePictureURL // ignore: cast_nullable_to_non_nullable
@@ -131,10 +124,9 @@ abstract class _$$_UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       String phoneNumber,
       String callCode,
       String countryCode,
-      String email,
-      String? password,
-      String authToken,
-      String currency,
+      String? email,
+      String? authToken,
+      String? currency,
       String? profilePictureURL});
 }
 
@@ -153,10 +145,9 @@ class __$$_UserDTOCopyWithImpl<$Res>
     Object? phoneNumber = null,
     Object? callCode = null,
     Object? countryCode = null,
-    Object? email = null,
-    Object? password = freezed,
-    Object? authToken = null,
-    Object? currency = null,
+    Object? email = freezed,
+    Object? authToken = freezed,
+    Object? currency = freezed,
     Object? profilePictureURL = freezed,
   }) {
     return _then(_$_UserDTO(
@@ -180,22 +171,18 @@ class __$$_UserDTOCopyWithImpl<$Res>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String?,
-      authToken: null == authToken
+      authToken: freezed == authToken
           ? _value.authToken
           : authToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      currency: null == currency
+              as String?,
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       profilePictureURL: freezed == profilePictureURL
           ? _value.profilePictureURL
           : profilePictureURL // ignore: cast_nullable_to_non_nullable
@@ -213,10 +200,9 @@ class _$_UserDTO extends _UserDTO {
       required this.phoneNumber,
       required this.callCode,
       required this.countryCode,
-      required this.email,
-      this.password,
-      required this.authToken,
-      required this.currency,
+      this.email,
+      this.authToken,
+      this.currency,
       this.profilePictureURL})
       : super._();
 
@@ -231,19 +217,17 @@ class _$_UserDTO extends _UserDTO {
   @override
   final String countryCode;
   @override
-  final String email;
+  final String? email;
   @override
-  final String? password;
+  final String? authToken;
   @override
-  final String authToken;
-  @override
-  final String currency;
+  final String? currency;
   @override
   final String? profilePictureURL;
 
   @override
   String toString() {
-    return 'UserDTO(name: $name, lastName: $lastName, phoneNumber: $phoneNumber, callCode: $callCode, countryCode: $countryCode, email: $email, password: $password, authToken: $authToken, currency: $currency, profilePictureURL: $profilePictureURL)';
+    return 'UserDTO(name: $name, lastName: $lastName, phoneNumber: $phoneNumber, callCode: $callCode, countryCode: $countryCode, email: $email, authToken: $authToken, currency: $currency, profilePictureURL: $profilePictureURL)';
   }
 
   @override
@@ -261,8 +245,6 @@ class _$_UserDTO extends _UserDTO {
             (identical(other.countryCode, countryCode) ||
                 other.countryCode == countryCode) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
             (identical(other.authToken, authToken) ||
                 other.authToken == authToken) &&
             (identical(other.currency, currency) ||
@@ -272,18 +254,8 @@ class _$_UserDTO extends _UserDTO {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      lastName,
-      phoneNumber,
-      callCode,
-      countryCode,
-      email,
-      password,
-      authToken,
-      currency,
-      profilePictureURL);
+  int get hashCode => Object.hash(runtimeType, name, lastName, phoneNumber,
+      callCode, countryCode, email, authToken, currency, profilePictureURL);
 
   @JsonKey(ignore: true)
   @override
@@ -299,10 +271,9 @@ abstract class _UserDTO extends UserDTO {
       required final String phoneNumber,
       required final String callCode,
       required final String countryCode,
-      required final String email,
-      final String? password,
-      required final String authToken,
-      required final String currency,
+      final String? email,
+      final String? authToken,
+      final String? currency,
       final String? profilePictureURL}) = _$_UserDTO;
   const _UserDTO._() : super._();
 
@@ -317,13 +288,11 @@ abstract class _UserDTO extends UserDTO {
   @override
   String get countryCode;
   @override
-  String get email;
+  String? get email;
   @override
-  String? get password;
+  String? get authToken;
   @override
-  String get authToken;
-  @override
-  String get currency;
+  String? get currency;
   @override
   String? get profilePictureURL;
   @override

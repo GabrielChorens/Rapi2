@@ -14,7 +14,11 @@ dependencies:
   json_annotation: ^4.8.1
   freezed_annotation: ^2.2.0
   dartz: ^0.10.1
-
+# Network dependencies
+  dio: ^5.1.2
+# Test dependencies
+  mockito: ^5.4.1
+  
 
 # Flutter dependencies
   flutter:
@@ -31,7 +35,6 @@ dev_dependencies:
   freezed: ^2.3.4
   build_runner: ^2.4.4
   json_serializable: ^6.6.2
-
 
 
 flutter:
