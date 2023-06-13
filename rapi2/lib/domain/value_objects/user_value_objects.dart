@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'core/failures/value_failures.dart';
 import 'core/validated_value_objects.dart';
 part 'user_value_objects.freezed.dart';
@@ -145,7 +144,7 @@ class NumberAsString extends ValidatedValueObject {
       return NumberAsString._(right(input));
     } else {
       return NumberAsString._(
-        left(ValueFailure.invalidName(
+        left(ValueFailure.invalidNumber(
             detailedFailureMessage: 'Offending value: $input')),
       );
     }

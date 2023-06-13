@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ServerSuccess {
   Map<String, dynamic> get data => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
+  String get typeDescription => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ServerSuccessCopyWith<ServerSuccess> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $ServerSuccessCopyWith<$Res> {
           ServerSuccess value, $Res Function(ServerSuccess) then) =
       _$ServerSuccessCopyWithImpl<$Res, ServerSuccess>;
   @useResult
-  $Res call({Map<String, dynamic> data, String message});
+  $Res call({Map<String, dynamic> data, String typeDescription});
 }
 
 /// @nodoc
@@ -47,16 +47,16 @@ class _$ServerSuccessCopyWithImpl<$Res, $Val extends ServerSuccess>
   @override
   $Res call({
     Object? data = null,
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_value.copyWith(
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -70,7 +70,7 @@ abstract class _$$_ServerSuccessCopyWith<$Res>
       __$$_ServerSuccessCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, dynamic> data, String message});
+  $Res call({Map<String, dynamic> data, String typeDescription});
 }
 
 /// @nodoc
@@ -85,16 +85,16 @@ class __$$_ServerSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object? data = null,
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$_ServerSuccess(
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -104,7 +104,8 @@ class __$$_ServerSuccessCopyWithImpl<$Res>
 
 class _$_ServerSuccess implements _ServerSuccess {
   const _$_ServerSuccess(
-      {final Map<String, dynamic> data = const {}, this.message = 'success'})
+      {final Map<String, dynamic> data = const {},
+      this.typeDescription = 'success'})
       : _data = data;
 
   final Map<String, dynamic> _data;
@@ -118,11 +119,11 @@ class _$_ServerSuccess implements _ServerSuccess {
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ServerSuccess(data: $data, message: $message)';
+    return 'ServerSuccess(data: $data, typeDescription: $typeDescription)';
   }
 
   @override
@@ -131,12 +132,13 @@ class _$_ServerSuccess implements _ServerSuccess {
         (other.runtimeType == runtimeType &&
             other is _$_ServerSuccess &&
             const DeepCollectionEquality().equals(other._data, _data) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_data), message);
+      runtimeType, const DeepCollectionEquality().hash(_data), typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -148,12 +150,12 @@ class _$_ServerSuccess implements _ServerSuccess {
 abstract class _ServerSuccess implements ServerSuccess {
   const factory _ServerSuccess(
       {final Map<String, dynamic> data,
-      final String message}) = _$_ServerSuccess;
+      final String typeDescription}) = _$_ServerSuccess;
 
   @override
   Map<String, dynamic> get data;
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$_ServerSuccessCopyWith<_$_ServerSuccess> get copyWith =>
@@ -162,46 +164,50 @@ abstract class _ServerSuccess implements ServerSuccess {
 
 /// @nodoc
 mixin _$ApiConnectionFailure {
-  String get message => throw _privateConstructorUsedError;
+  String get typeDescription => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -261,7 +267,7 @@ abstract class $ApiConnectionFailureCopyWith<$Res> {
           $Res Function(ApiConnectionFailure) then) =
       _$ApiConnectionFailureCopyWithImpl<$Res, ApiConnectionFailure>;
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -278,12 +284,12 @@ class _$ApiConnectionFailureCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_value.copyWith(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -297,7 +303,7 @@ abstract class _$$AlreadyRegisteredValueCopyWith<$Res>
       __$$AlreadyRegisteredValueCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -311,12 +317,12 @@ class __$$AlreadyRegisteredValueCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$AlreadyRegisteredValue(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -325,16 +331,17 @@ class __$$AlreadyRegisteredValueCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AlreadyRegisteredValue extends AlreadyRegisteredValue {
-  const _$AlreadyRegisteredValue({this.message = 'already_registered_value'})
+  const _$AlreadyRegisteredValue(
+      {this.typeDescription = 'already_registered_value'})
       : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.alreadyRegisteredValue(message: $message)';
+    return 'ApiConnectionFailure.alreadyRegisteredValue(typeDescription: $typeDescription)';
   }
 
   @override
@@ -342,11 +349,12 @@ class _$AlreadyRegisteredValue extends AlreadyRegisteredValue {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AlreadyRegisteredValue &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -358,53 +366,57 @@ class _$AlreadyRegisteredValue extends AlreadyRegisteredValue {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return alreadyRegisteredValue(message);
+    return alreadyRegisteredValue(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return alreadyRegisteredValue?.call(message);
+    return alreadyRegisteredValue?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (alreadyRegisteredValue != null) {
-      return alreadyRegisteredValue(message);
+      return alreadyRegisteredValue(typeDescription);
     }
     return orElse();
   }
@@ -467,12 +479,12 @@ class _$AlreadyRegisteredValue extends AlreadyRegisteredValue {
 }
 
 abstract class AlreadyRegisteredValue extends ApiConnectionFailure {
-  const factory AlreadyRegisteredValue({final String message}) =
+  const factory AlreadyRegisteredValue({final String typeDescription}) =
       _$AlreadyRegisteredValue;
   const AlreadyRegisteredValue._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$AlreadyRegisteredValueCopyWith<_$AlreadyRegisteredValue> get copyWith =>
@@ -487,7 +499,7 @@ abstract class _$$InvalidValueCopyWith<$Res>
       __$$InvalidValueCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -501,12 +513,12 @@ class __$$InvalidValueCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$InvalidValue(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -515,15 +527,15 @@ class __$$InvalidValueCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InvalidValue extends InvalidValue {
-  const _$InvalidValue({this.message = 'invalid_value'}) : super._();
+  const _$InvalidValue({this.typeDescription = 'invalid_value'}) : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.invalidValue(message: $message)';
+    return 'ApiConnectionFailure.invalidValue(typeDescription: $typeDescription)';
   }
 
   @override
@@ -531,11 +543,12 @@ class _$InvalidValue extends InvalidValue {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InvalidValue &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -546,53 +559,57 @@ class _$InvalidValue extends InvalidValue {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return invalidValue(message);
+    return invalidValue(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return invalidValue?.call(message);
+    return invalidValue?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (invalidValue != null) {
-      return invalidValue(message);
+      return invalidValue(typeDescription);
     }
     return orElse();
   }
@@ -655,11 +672,11 @@ class _$InvalidValue extends InvalidValue {
 }
 
 abstract class InvalidValue extends ApiConnectionFailure {
-  const factory InvalidValue({final String message}) = _$InvalidValue;
+  const factory InvalidValue({final String typeDescription}) = _$InvalidValue;
   const InvalidValue._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$InvalidValueCopyWith<_$InvalidValue> get copyWith =>
@@ -674,7 +691,7 @@ abstract class _$$BadRequestCopyWith<$Res>
       __$$BadRequestCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message, String? detailedMessage});
+  $Res call({String typeDescription, String? detailedMessage});
 }
 
 /// @nodoc
@@ -688,13 +705,13 @@ class __$$BadRequestCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
     Object? detailedMessage = freezed,
   }) {
     return _then(_$BadRequest(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
       detailedMessage: freezed == detailedMessage
           ? _value.detailedMessage
@@ -707,18 +724,19 @@ class __$$BadRequestCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BadRequest extends BadRequest {
-  const _$BadRequest({this.message = 'bad_request', this.detailedMessage})
+  const _$BadRequest(
+      {this.typeDescription = 'bad_request', this.detailedMessage})
       : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
   @override
   final String? detailedMessage;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.badRequest(message: $message, detailedMessage: $detailedMessage)';
+    return 'ApiConnectionFailure.badRequest(typeDescription: $typeDescription, detailedMessage: $detailedMessage)';
   }
 
   @override
@@ -726,13 +744,15 @@ class _$BadRequest extends BadRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BadRequest &&
-            (identical(other.message, message) || other.message == message) &&
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription) &&
             (identical(other.detailedMessage, detailedMessage) ||
                 other.detailedMessage == detailedMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message, detailedMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, typeDescription, detailedMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -743,53 +763,57 @@ class _$BadRequest extends BadRequest {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return badRequest(message, detailedMessage);
+    return badRequest(typeDescription, detailedMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return badRequest?.call(message, detailedMessage);
+    return badRequest?.call(typeDescription, detailedMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (badRequest != null) {
-      return badRequest(message, detailedMessage);
+      return badRequest(typeDescription, detailedMessage);
     }
     return orElse();
   }
@@ -853,11 +877,12 @@ class _$BadRequest extends BadRequest {
 
 abstract class BadRequest extends ApiConnectionFailure {
   const factory BadRequest(
-      {final String message, final String? detailedMessage}) = _$BadRequest;
+      {final String typeDescription,
+      final String? detailedMessage}) = _$BadRequest;
   const BadRequest._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   String? get detailedMessage;
   @override
   @JsonKey(ignore: true)
@@ -873,7 +898,7 @@ abstract class _$$UnauthorizedCopyWith<$Res>
       __$$UnauthorizedCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -887,12 +912,12 @@ class __$$UnauthorizedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$Unauthorized(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -901,15 +926,15 @@ class __$$UnauthorizedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Unauthorized extends Unauthorized {
-  const _$Unauthorized({this.message = 'unauthorized'}) : super._();
+  const _$Unauthorized({this.typeDescription = 'unauthorized'}) : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.unauthorized(message: $message)';
+    return 'ApiConnectionFailure.unauthorized(typeDescription: $typeDescription)';
   }
 
   @override
@@ -917,11 +942,12 @@ class _$Unauthorized extends Unauthorized {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Unauthorized &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -932,53 +958,57 @@ class _$Unauthorized extends Unauthorized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return unauthorized(message);
+    return unauthorized(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return unauthorized?.call(message);
+    return unauthorized?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (unauthorized != null) {
-      return unauthorized(message);
+      return unauthorized(typeDescription);
     }
     return orElse();
   }
@@ -1041,11 +1071,11 @@ class _$Unauthorized extends Unauthorized {
 }
 
 abstract class Unauthorized extends ApiConnectionFailure {
-  const factory Unauthorized({final String message}) = _$Unauthorized;
+  const factory Unauthorized({final String typeDescription}) = _$Unauthorized;
   const Unauthorized._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$UnauthorizedCopyWith<_$Unauthorized> get copyWith =>
@@ -1060,7 +1090,7 @@ abstract class _$$NotFoundCopyWith<$Res>
       __$$NotFoundCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -1073,12 +1103,12 @@ class __$$NotFoundCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$NotFound(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1087,15 +1117,15 @@ class __$$NotFoundCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NotFound extends NotFound {
-  const _$NotFound({this.message = 'not_found'}) : super._();
+  const _$NotFound({this.typeDescription = 'not_found'}) : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.notFound(message: $message)';
+    return 'ApiConnectionFailure.notFound(typeDescription: $typeDescription)';
   }
 
   @override
@@ -1103,11 +1133,12 @@ class _$NotFound extends NotFound {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotFound &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -1118,53 +1149,57 @@ class _$NotFound extends NotFound {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return notFound(message);
+    return notFound(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return notFound?.call(message);
+    return notFound?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (notFound != null) {
-      return notFound(message);
+      return notFound(typeDescription);
     }
     return orElse();
   }
@@ -1227,11 +1262,11 @@ class _$NotFound extends NotFound {
 }
 
 abstract class NotFound extends ApiConnectionFailure {
-  const factory NotFound({final String message}) = _$NotFound;
+  const factory NotFound({final String typeDescription}) = _$NotFound;
   const NotFound._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$NotFoundCopyWith<_$NotFound> get copyWith =>
@@ -1246,7 +1281,7 @@ abstract class _$$ServerErrorCopyWith<$Res>
       __$$ServerErrorCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -1260,12 +1295,12 @@ class __$$ServerErrorCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$ServerError(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1274,15 +1309,15 @@ class __$$ServerErrorCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ServerError extends ServerError {
-  const _$ServerError({this.message = 'server_error'}) : super._();
+  const _$ServerError({this.typeDescription = 'server_error'}) : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.serverError(message: $message)';
+    return 'ApiConnectionFailure.serverError(typeDescription: $typeDescription)';
   }
 
   @override
@@ -1290,11 +1325,12 @@ class _$ServerError extends ServerError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ServerError &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -1305,53 +1341,57 @@ class _$ServerError extends ServerError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return serverError(message);
+    return serverError(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return serverError?.call(message);
+    return serverError?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (serverError != null) {
-      return serverError(message);
+      return serverError(typeDescription);
     }
     return orElse();
   }
@@ -1414,11 +1454,11 @@ class _$ServerError extends ServerError {
 }
 
 abstract class ServerError extends ApiConnectionFailure {
-  const factory ServerError({final String message}) = _$ServerError;
+  const factory ServerError({final String typeDescription}) = _$ServerError;
   const ServerError._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$ServerErrorCopyWith<_$ServerError> get copyWith =>
@@ -1434,7 +1474,7 @@ abstract class _$$InternetConnectionTimeoutCopyWith<$Res>
       __$$InternetConnectionTimeoutCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -1449,12 +1489,12 @@ class __$$InternetConnectionTimeoutCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$InternetConnectionTimeout(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1464,16 +1504,16 @@ class __$$InternetConnectionTimeoutCopyWithImpl<$Res>
 
 class _$InternetConnectionTimeout extends InternetConnectionTimeout {
   const _$InternetConnectionTimeout(
-      {this.message = 'internet_connection_timeout'})
+      {this.typeDescription = 'internet_connection_timeout'})
       : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.internetConnectionTimeout(message: $message)';
+    return 'ApiConnectionFailure.internetConnectionTimeout(typeDescription: $typeDescription)';
   }
 
   @override
@@ -1481,11 +1521,12 @@ class _$InternetConnectionTimeout extends InternetConnectionTimeout {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InternetConnectionTimeout &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -1497,53 +1538,57 @@ class _$InternetConnectionTimeout extends InternetConnectionTimeout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return internetConnectionTimeout(message);
+    return internetConnectionTimeout(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return internetConnectionTimeout?.call(message);
+    return internetConnectionTimeout?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (internetConnectionTimeout != null) {
-      return internetConnectionTimeout(message);
+      return internetConnectionTimeout(typeDescription);
     }
     return orElse();
   }
@@ -1606,12 +1651,12 @@ class _$InternetConnectionTimeout extends InternetConnectionTimeout {
 }
 
 abstract class InternetConnectionTimeout extends ApiConnectionFailure {
-  const factory InternetConnectionTimeout({final String message}) =
+  const factory InternetConnectionTimeout({final String typeDescription}) =
       _$InternetConnectionTimeout;
   const InternetConnectionTimeout._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$InternetConnectionTimeoutCopyWith<_$InternetConnectionTimeout>
@@ -1626,7 +1671,7 @@ abstract class _$$ConnectionErrorCopyWith<$Res>
       __$$ConnectionErrorCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message});
+  $Res call({String typeDescription});
 }
 
 /// @nodoc
@@ -1640,12 +1685,12 @@ class __$$ConnectionErrorCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
   }) {
     return _then(_$ConnectionError(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1654,15 +1699,16 @@ class __$$ConnectionErrorCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConnectionError extends ConnectionError {
-  const _$ConnectionError({this.message = 'connection_error'}) : super._();
+  const _$ConnectionError({this.typeDescription = 'connection_error'})
+      : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.connectionError(message: $message)';
+    return 'ApiConnectionFailure.connectionError(typeDescription: $typeDescription)';
   }
 
   @override
@@ -1670,11 +1716,12 @@ class _$ConnectionError extends ConnectionError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ConnectionError &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, typeDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -1685,53 +1732,57 @@ class _$ConnectionError extends ConnectionError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return connectionError(message);
+    return connectionError(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return connectionError?.call(message);
+    return connectionError?.call(typeDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (connectionError != null) {
-      return connectionError(message);
+      return connectionError(typeDescription);
     }
     return orElse();
   }
@@ -1794,11 +1845,12 @@ class _$ConnectionError extends ConnectionError {
 }
 
 abstract class ConnectionError extends ApiConnectionFailure {
-  const factory ConnectionError({final String message}) = _$ConnectionError;
+  const factory ConnectionError({final String typeDescription}) =
+      _$ConnectionError;
   const ConnectionError._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   @override
   @JsonKey(ignore: true)
   _$$ConnectionErrorCopyWith<_$ConnectionError> get copyWith =>
@@ -1813,7 +1865,7 @@ abstract class _$$UnexpectedErrorCopyWith<$Res>
       __$$UnexpectedErrorCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message, String? detailedMessage});
+  $Res call({String typeDescription, String? detailedMessage});
 }
 
 /// @nodoc
@@ -1827,13 +1879,13 @@ class __$$UnexpectedErrorCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? typeDescription = null,
     Object? detailedMessage = freezed,
   }) {
     return _then(_$UnexpectedError(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      typeDescription: null == typeDescription
+          ? _value.typeDescription
+          : typeDescription // ignore: cast_nullable_to_non_nullable
               as String,
       detailedMessage: freezed == detailedMessage
           ? _value.detailedMessage
@@ -1847,18 +1899,18 @@ class __$$UnexpectedErrorCopyWithImpl<$Res>
 
 class _$UnexpectedError extends UnexpectedError {
   const _$UnexpectedError(
-      {this.message = 'unexpected_error', this.detailedMessage})
+      {this.typeDescription = 'unexpected_error', this.detailedMessage})
       : super._();
 
   @override
   @JsonKey()
-  final String message;
+  final String typeDescription;
   @override
   final String? detailedMessage;
 
   @override
   String toString() {
-    return 'ApiConnectionFailure.unexpectedError(message: $message, detailedMessage: $detailedMessage)';
+    return 'ApiConnectionFailure.unexpectedError(typeDescription: $typeDescription, detailedMessage: $detailedMessage)';
   }
 
   @override
@@ -1866,13 +1918,15 @@ class _$UnexpectedError extends UnexpectedError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnexpectedError &&
-            (identical(other.message, message) || other.message == message) &&
+            (identical(other.typeDescription, typeDescription) ||
+                other.typeDescription == typeDescription) &&
             (identical(other.detailedMessage, detailedMessage) ||
                 other.detailedMessage == detailedMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message, detailedMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, typeDescription, detailedMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -1883,53 +1937,57 @@ class _$UnexpectedError extends UnexpectedError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) alreadyRegisteredValue,
-    required TResult Function(String message) invalidValue,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) alreadyRegisteredValue,
+    required TResult Function(String typeDescription) invalidValue,
+    required TResult Function(String typeDescription, String? detailedMessage)
         badRequest,
-    required TResult Function(String message) unauthorized,
-    required TResult Function(String message) notFound,
-    required TResult Function(String message) serverError,
-    required TResult Function(String message) internetConnectionTimeout,
-    required TResult Function(String message) connectionError,
-    required TResult Function(String message, String? detailedMessage)
+    required TResult Function(String typeDescription) unauthorized,
+    required TResult Function(String typeDescription) notFound,
+    required TResult Function(String typeDescription) serverError,
+    required TResult Function(String typeDescription) internetConnectionTimeout,
+    required TResult Function(String typeDescription) connectionError,
+    required TResult Function(String typeDescription, String? detailedMessage)
         unexpectedError,
   }) {
-    return unexpectedError(message, detailedMessage);
+    return unexpectedError(typeDescription, detailedMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? alreadyRegisteredValue,
-    TResult? Function(String message)? invalidValue,
-    TResult? Function(String message, String? detailedMessage)? badRequest,
-    TResult? Function(String message)? unauthorized,
-    TResult? Function(String message)? notFound,
-    TResult? Function(String message)? serverError,
-    TResult? Function(String message)? internetConnectionTimeout,
-    TResult? Function(String message)? connectionError,
-    TResult? Function(String message, String? detailedMessage)? unexpectedError,
+    TResult? Function(String typeDescription)? alreadyRegisteredValue,
+    TResult? Function(String typeDescription)? invalidValue,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult? Function(String typeDescription)? unauthorized,
+    TResult? Function(String typeDescription)? notFound,
+    TResult? Function(String typeDescription)? serverError,
+    TResult? Function(String typeDescription)? internetConnectionTimeout,
+    TResult? Function(String typeDescription)? connectionError,
+    TResult? Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
   }) {
-    return unexpectedError?.call(message, detailedMessage);
+    return unexpectedError?.call(typeDescription, detailedMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? alreadyRegisteredValue,
-    TResult Function(String message)? invalidValue,
-    TResult Function(String message, String? detailedMessage)? badRequest,
-    TResult Function(String message)? unauthorized,
-    TResult Function(String message)? notFound,
-    TResult Function(String message)? serverError,
-    TResult Function(String message)? internetConnectionTimeout,
-    TResult Function(String message)? connectionError,
-    TResult Function(String message, String? detailedMessage)? unexpectedError,
+    TResult Function(String typeDescription)? alreadyRegisteredValue,
+    TResult Function(String typeDescription)? invalidValue,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        badRequest,
+    TResult Function(String typeDescription)? unauthorized,
+    TResult Function(String typeDescription)? notFound,
+    TResult Function(String typeDescription)? serverError,
+    TResult Function(String typeDescription)? internetConnectionTimeout,
+    TResult Function(String typeDescription)? connectionError,
+    TResult Function(String typeDescription, String? detailedMessage)?
+        unexpectedError,
     required TResult orElse(),
   }) {
     if (unexpectedError != null) {
-      return unexpectedError(message, detailedMessage);
+      return unexpectedError(typeDescription, detailedMessage);
     }
     return orElse();
   }
@@ -1993,12 +2051,12 @@ class _$UnexpectedError extends UnexpectedError {
 
 abstract class UnexpectedError extends ApiConnectionFailure {
   const factory UnexpectedError(
-      {final String message,
+      {final String typeDescription,
       final String? detailedMessage}) = _$UnexpectedError;
   const UnexpectedError._() : super._();
 
   @override
-  String get message;
+  String get typeDescription;
   String? get detailedMessage;
   @override
   @JsonKey(ignore: true)

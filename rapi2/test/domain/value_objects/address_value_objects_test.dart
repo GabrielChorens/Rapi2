@@ -67,4 +67,26 @@ void main() {
     });
   });
 
+    group('Address Value Object', () {
+    test('should create a valid Address instance', () {
+      // Arrange
+      Coordinate coordinates = Coordinate(40.712776, -74.005974); // New York coordinates
+      const String addressName = 'Home';
+      const String addressDetailed = '123, Main Street, New York';
+      const String name = 'Home address';
+
+      // Act
+      final address = AddressValueObject(
+        name: name,
+        coordinates: coordinates,
+        addressName: addressName,
+        addressDetailed: addressDetailed,
+      );
+
+      // Assert
+      expect(address.coordinates, coordinates);
+      expect(address.addressName, addressName);
+      expect(address.addressDetailed, addressDetailed);
+    });
+  });
 }

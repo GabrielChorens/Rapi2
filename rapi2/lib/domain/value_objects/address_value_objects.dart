@@ -36,3 +36,15 @@ class Coordinate extends ValidatedValueObject<RawCoordinate> {
 
   const Coordinate._(this.value);
 }
+
+///A value object that represents an address.
+///It contains the following required fields: [int] id, [Coordinate] coordinates, [String] addressName and [String] addressDetailed.
+@freezed
+abstract class AddressValueObject with _$AddressValueObject{
+  factory AddressValueObject({
+    required final String name,
+    required final Coordinate coordinates,
+    required final String addressName,
+    required final String addressDetailed,
+  }) = _AddressValueObject;
+}

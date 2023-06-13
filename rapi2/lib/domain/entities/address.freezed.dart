@@ -17,9 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Address {
   int get id => throw _privateConstructorUsedError;
-  Coordinate get coordinates => throw _privateConstructorUsedError;
-  String get addressName => throw _privateConstructorUsedError;
-  String get addressDetailed => throw _privateConstructorUsedError;
+  AddressValueObject get address => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddressCopyWith<Address> get copyWith => throw _privateConstructorUsedError;
@@ -30,11 +28,9 @@ abstract class $AddressCopyWith<$Res> {
   factory $AddressCopyWith(Address value, $Res Function(Address) then) =
       _$AddressCopyWithImpl<$Res, Address>;
   @useResult
-  $Res call(
-      {int id,
-      Coordinate coordinates,
-      String addressName,
-      String addressDetailed});
+  $Res call({int id, AddressValueObject address});
+
+  $AddressValueObjectCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -51,28 +47,26 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   @override
   $Res call({
     Object? id = null,
-    Object? coordinates = null,
-    Object? addressName = null,
-    Object? addressDetailed = null,
+    Object? address = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      coordinates: null == coordinates
-          ? _value.coordinates
-          : coordinates // ignore: cast_nullable_to_non_nullable
-              as Coordinate,
-      addressName: null == addressName
-          ? _value.addressName
-          : addressName // ignore: cast_nullable_to_non_nullable
-              as String,
-      addressDetailed: null == addressDetailed
-          ? _value.addressDetailed
-          : addressDetailed // ignore: cast_nullable_to_non_nullable
-              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as AddressValueObject,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressValueObjectCopyWith<$Res> get address {
+    return $AddressValueObjectCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
   }
 }
 
@@ -83,11 +77,10 @@ abstract class _$$_AddressCopyWith<$Res> implements $AddressCopyWith<$Res> {
       __$$_AddressCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      Coordinate coordinates,
-      String addressName,
-      String addressDetailed});
+  $Res call({int id, AddressValueObject address});
+
+  @override
+  $AddressValueObjectCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -101,27 +94,17 @@ class __$$_AddressCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? coordinates = null,
-    Object? addressName = null,
-    Object? addressDetailed = null,
+    Object? address = null,
   }) {
     return _then(_$_Address(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      coordinates: null == coordinates
-          ? _value.coordinates
-          : coordinates // ignore: cast_nullable_to_non_nullable
-              as Coordinate,
-      addressName: null == addressName
-          ? _value.addressName
-          : addressName // ignore: cast_nullable_to_non_nullable
-              as String,
-      addressDetailed: null == addressDetailed
-          ? _value.addressDetailed
-          : addressDetailed // ignore: cast_nullable_to_non_nullable
-              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as AddressValueObject,
     ));
   }
 }
@@ -129,24 +112,16 @@ class __$$_AddressCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Address implements _Address {
-  _$_Address(
-      {required this.id,
-      required this.coordinates,
-      required this.addressName,
-      required this.addressDetailed});
+  _$_Address({required this.id, required this.address});
 
   @override
   final int id;
   @override
-  final Coordinate coordinates;
-  @override
-  final String addressName;
-  @override
-  final String addressDetailed;
+  final AddressValueObject address;
 
   @override
   String toString() {
-    return 'Address(id: $id, coordinates: $coordinates, addressName: $addressName, addressDetailed: $addressDetailed)';
+    return 'Address(id: $id, address: $address)';
   }
 
   @override
@@ -155,17 +130,11 @@ class _$_Address implements _Address {
         (other.runtimeType == runtimeType &&
             other is _$_Address &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.coordinates, coordinates) ||
-                other.coordinates == coordinates) &&
-            (identical(other.addressName, addressName) ||
-                other.addressName == addressName) &&
-            (identical(other.addressDetailed, addressDetailed) ||
-                other.addressDetailed == addressDetailed));
+            (identical(other.address, address) || other.address == address));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, coordinates, addressName, addressDetailed);
+  int get hashCode => Object.hash(runtimeType, id, address);
 
   @JsonKey(ignore: true)
   @override
@@ -177,18 +146,12 @@ class _$_Address implements _Address {
 abstract class _Address implements Address {
   factory _Address(
       {required final int id,
-      required final Coordinate coordinates,
-      required final String addressName,
-      required final String addressDetailed}) = _$_Address;
+      required final AddressValueObject address}) = _$_Address;
 
   @override
   int get id;
   @override
-  Coordinate get coordinates;
-  @override
-  String get addressName;
-  @override
-  String get addressDetailed;
+  AddressValueObject get address;
   @override
   @JsonKey(ignore: true)
   _$$_AddressCopyWith<_$_Address> get copyWith =>

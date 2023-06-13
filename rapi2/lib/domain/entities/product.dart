@@ -7,7 +7,7 @@ part 'product.freezed.dart';
 ///It contains the following required fields: [int] id, [String] name, [String] description, [double] price, [int] deliveryTime and [String] pictureURL.
 ///It contains the following optional fields: [String] weight and [int] stock.
 @freezed
-class Product with _$Product {
+abstract class Product with _$Product {
   const factory Product({
     required final int id,
     required final String name,

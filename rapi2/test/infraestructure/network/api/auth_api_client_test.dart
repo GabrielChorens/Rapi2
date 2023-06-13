@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rapi2/domain/value_objects/user_value_objects.dart';
 import 'package:rapi2/infraestructure/network/api/auth_api_client.dart';
 import 'package:rapi2/infraestructure/network/api/server_responses.dart';
 import 'package:mockito/mockito.dart';
@@ -11,16 +10,18 @@ void main() {
   late MockDioProvider mockDioProvider;
   late AuthApiClient authApiClient;
 
-  const Name testName = Name(firstName: "test", lastName: "test");
+  const String testFirstName = 'test';
+  const String testLastName = 'test';
+  const String testEmail = 'chorensgabriel@gmail.com';
+  const String testPhoneNumber = '85883441';
+  const String testCallCode = '505';
+  const String testCountryCode = 'NI';
+  const String testPassword  = '12345678';
+  const String testFirebaseToken = '';
+  const String testValidationCode = 'test';
 
-  final Email testEmail = Email('chorensgabriel@gmail.com');
 
-  final PhoneNumber testPhoneNumber = PhoneNumber(
-    phoneNumber: NumberAsString("85883441"),
-    callCode: NumberAsString("505"),
-    countryCode: "NI",
-  );
-  final Password testPassword = Password("12345678");
+  const String testFullPhoneNumber = '+$testCallCode$testPhoneNumber';
 
   setUp(() {
     mockDioProvider = MockDioProvider();
@@ -44,7 +45,10 @@ void main() {
       //Act
       final result = await authApiClient.login(
         phoneNumber: testPhoneNumber,
+        callCode: testCallCode,
+        countryCode: testCountryCode,
         password: testPassword,
+        firebaseToken: testFirebaseToken,
       );
 
       //Assert
@@ -73,7 +77,10 @@ void main() {
       //Act
       final result = await authApiClient.login(
         phoneNumber: testPhoneNumber,
+        callCode: testCallCode,
+        countryCode: testCountryCode,
         password: testPassword,
+        firebaseToken: testFirebaseToken,
       );
 
       //Assert
@@ -99,7 +106,10 @@ void main() {
       //Act
       final result = await authApiClient.login(
         phoneNumber: testPhoneNumber,
+        callCode: testCallCode,
+        countryCode: testCountryCode,
         password: testPassword,
+        firebaseToken: testFirebaseToken,
       );
 
       //Assert
@@ -123,9 +133,14 @@ void main() {
 
       //Act
       final result = await authApiClient.signUp(
-        name: testName,
+        firstName: testFirstName,
+        lastName: testLastName,
         phoneNumber: testPhoneNumber,
+        callCode: testCallCode,
+        countryCode: testCountryCode,
+        email: testEmail,
         password: testPassword,
+        firebaseToken: testFirebaseToken,
       );
 
       //Assert
@@ -154,9 +169,14 @@ void main() {
 
       //Act
       final result = await authApiClient.signUp(
-        name: testName,
+        firstName: testFirstName,
+        lastName: testLastName,
         phoneNumber: testPhoneNumber,
+        callCode: testCallCode,
+        countryCode: testCountryCode,
+        email: testEmail,
         password: testPassword,
+        firebaseToken: testFirebaseToken,
       );
 
       //Assert
@@ -206,4 +226,69 @@ void main() {
     });
   });
 
+   group('checkPhoneNumberAvailability', () {
+    test(
+        'Should answer ServerSuccess if the phone number its not registered in the database',
+        () async {
+      //Arrange
+         when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+          (_) async => Response(
+              data: {'phone_number': false},
+              statusCode: 200,
+              requestOptions: RequestOptions(path: '')));
+
+      //Act
+      final result = await authApiClient.checkPhoneNumberAvailability(
+        phoneNumber: testFullPhoneNumber,
+      );
+      //Assert
+      expect(result.isRight(), true);
+    });
+
+    test(
+        'Should throw ApiConnectionFailure.alreadyRegisteredValue if the phone number its already registered',
+        () async {
+      //Arrange
+         when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+          (_) async => Response(
+              data: {'phone_number': true},
+              statusCode: 200,
+              requestOptions: RequestOptions(path: '')));
+
+      //Act
+      final result = await authApiClient.checkPhoneNumberAvailability(
+        phoneNumber: testFullPhoneNumber,
+      );
+      //Assert
+      expect(result,
+          equals(left(const ApiConnectionFailure.alreadyRegisteredValue())));
+    });
+  });
+
+  //No need to test request validation code since it can only accept an already validated Phone Number 
+
+   group('Check validation code', () {
+    test(
+        'Should answer ServerSuccess if the validation code is correct according to the phone number',
+        () async {
+      //Arrange
+       when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+          (_) async => Response(
+              data: 'true',
+              statusCode: 200,
+              requestOptions: RequestOptions(path: '')));
+
+      //Act
+      final result = await authApiClient.checkValidationCode(
+        phoneNumber: testPhoneNumber,
+        callCode: testCallCode,
+        validationCode: testValidationCode,
+      );
+      //Assert
+      expect(result, equals(right(const ServerSuccess())) );
+    });
+
+    //At the moment 6/7/2023 the server does not return any error if the validation code is incorrect
+    
+  });
 }

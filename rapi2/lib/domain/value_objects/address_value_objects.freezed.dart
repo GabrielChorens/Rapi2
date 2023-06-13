@@ -150,3 +150,189 @@ abstract class _RawCoordinate implements RawCoordinate {
   _$$_RawCoordinateCopyWith<_$_RawCoordinate> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$AddressValueObject {
+  String get name => throw _privateConstructorUsedError;
+  Coordinate get coordinates => throw _privateConstructorUsedError;
+  String get addressName => throw _privateConstructorUsedError;
+  String get addressDetailed => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AddressValueObjectCopyWith<AddressValueObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AddressValueObjectCopyWith<$Res> {
+  factory $AddressValueObjectCopyWith(
+          AddressValueObject value, $Res Function(AddressValueObject) then) =
+      _$AddressValueObjectCopyWithImpl<$Res, AddressValueObject>;
+  @useResult
+  $Res call(
+      {String name,
+      Coordinate coordinates,
+      String addressName,
+      String addressDetailed});
+}
+
+/// @nodoc
+class _$AddressValueObjectCopyWithImpl<$Res, $Val extends AddressValueObject>
+    implements $AddressValueObjectCopyWith<$Res> {
+  _$AddressValueObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? coordinates = null,
+    Object? addressName = null,
+    Object? addressDetailed = null,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      coordinates: null == coordinates
+          ? _value.coordinates
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as Coordinate,
+      addressName: null == addressName
+          ? _value.addressName
+          : addressName // ignore: cast_nullable_to_non_nullable
+              as String,
+      addressDetailed: null == addressDetailed
+          ? _value.addressDetailed
+          : addressDetailed // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_AddressValueObjectCopyWith<$Res>
+    implements $AddressValueObjectCopyWith<$Res> {
+  factory _$$_AddressValueObjectCopyWith(_$_AddressValueObject value,
+          $Res Function(_$_AddressValueObject) then) =
+      __$$_AddressValueObjectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      Coordinate coordinates,
+      String addressName,
+      String addressDetailed});
+}
+
+/// @nodoc
+class __$$_AddressValueObjectCopyWithImpl<$Res>
+    extends _$AddressValueObjectCopyWithImpl<$Res, _$_AddressValueObject>
+    implements _$$_AddressValueObjectCopyWith<$Res> {
+  __$$_AddressValueObjectCopyWithImpl(
+      _$_AddressValueObject _value, $Res Function(_$_AddressValueObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? coordinates = null,
+    Object? addressName = null,
+    Object? addressDetailed = null,
+  }) {
+    return _then(_$_AddressValueObject(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      coordinates: null == coordinates
+          ? _value.coordinates
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as Coordinate,
+      addressName: null == addressName
+          ? _value.addressName
+          : addressName // ignore: cast_nullable_to_non_nullable
+              as String,
+      addressDetailed: null == addressDetailed
+          ? _value.addressDetailed
+          : addressDetailed // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AddressValueObject implements _AddressValueObject {
+  _$_AddressValueObject(
+      {required this.name,
+      required this.coordinates,
+      required this.addressName,
+      required this.addressDetailed});
+
+  @override
+  final String name;
+  @override
+  final Coordinate coordinates;
+  @override
+  final String addressName;
+  @override
+  final String addressDetailed;
+
+  @override
+  String toString() {
+    return 'AddressValueObject(name: $name, coordinates: $coordinates, addressName: $addressName, addressDetailed: $addressDetailed)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AddressValueObject &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.coordinates, coordinates) ||
+                other.coordinates == coordinates) &&
+            (identical(other.addressName, addressName) ||
+                other.addressName == addressName) &&
+            (identical(other.addressDetailed, addressDetailed) ||
+                other.addressDetailed == addressDetailed));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, coordinates, addressName, addressDetailed);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AddressValueObjectCopyWith<_$_AddressValueObject> get copyWith =>
+      __$$_AddressValueObjectCopyWithImpl<_$_AddressValueObject>(
+          this, _$identity);
+}
+
+abstract class _AddressValueObject implements AddressValueObject {
+  factory _AddressValueObject(
+      {required final String name,
+      required final Coordinate coordinates,
+      required final String addressName,
+      required final String addressDetailed}) = _$_AddressValueObject;
+
+  @override
+  String get name;
+  @override
+  Coordinate get coordinates;
+  @override
+  String get addressName;
+  @override
+  String get addressDetailed;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AddressValueObjectCopyWith<_$_AddressValueObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -15,20 +15,24 @@ void main() {
       Coordinate coordinates = Coordinate(40.712776, -74.005974); // New York coordinates
       const String addressName = 'Home';
       const String addressDetailed = '123, Main Street, New York';
+      const String name = 'Home address';
 
       // Act
       final address = Address(
         id: id,
-        coordinates: coordinates,
-        addressName: addressName,
-        addressDetailed: addressDetailed,
+        address: AddressValueObject(
+          name: name,
+          coordinates: coordinates,
+          addressName: addressName,
+          addressDetailed: addressDetailed,
+        ),
       );
 
       // Assert
       expect(address.id, id);
-      expect(address.coordinates, coordinates);
-      expect(address.addressName, addressName);
-      expect(address.addressDetailed, addressDetailed);
+      expect(address.address.coordinates, coordinates);
+      expect(address.address.addressName, addressName);
+      expect(address.address.addressDetailed, addressDetailed);
     });
   });
 

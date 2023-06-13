@@ -7,7 +7,7 @@ import 'dio.mocks.dart';
 class MockDioProvider implements DioProvider {
 
   late MockDio _dio;
-
+  String? _authToken;
   
   MockDioProvider() {
     _dio = MockDio();
@@ -21,9 +21,22 @@ class MockDioProvider implements DioProvider {
   
   @override
   void setAuthToken(String token) {
+    _authToken = token;
     _dio.options.headers['Authorization'] = 'Bearer $token';
   }
+
+
   
   @override
   MockDio get dio => _dio;
+  
+  @override
+  String? get authToken => _authToken;
+  
+  @override
+  void clearAuthToken() {
+    _authToken = null;
+    _dio.options.headers.remove('Authorization');
+  }
+
 }

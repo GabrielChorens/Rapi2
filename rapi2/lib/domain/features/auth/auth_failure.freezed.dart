@@ -18,28 +18,26 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverError,
-    required TResult Function() phoneNumberAlreadyInUse,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() invalidVerificationCode,
+    required TResult Function(String failureDescription) serverError,
+    required TResult Function() alreadyRegisteredValue,
+    required TResult Function()
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function() invalidPhoneNumberAndPasswordCombination,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? serverError,
-    TResult? Function()? phoneNumberAlreadyInUse,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? invalidVerificationCode,
+    TResult? Function(String failureDescription)? serverError,
+    TResult? Function()? alreadyRegisteredValue,
+    TResult? Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function()? invalidPhoneNumberAndPasswordCombination,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverError,
-    TResult Function()? phoneNumberAlreadyInUse,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? invalidVerificationCode,
+    TResult Function(String failureDescription)? serverError,
+    TResult Function()? alreadyRegisteredValue,
+    TResult Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function()? invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
   }) =>
@@ -47,11 +45,11 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ServerError value) serverError,
-    required TResult Function(PhoneNumberAlreadyInUse value)
-        phoneNumberAlreadyInUse,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(InvalidVerificationCode value)
-        invalidVerificationCode,
+    required TResult Function(AlreadyRegisteredValue value)
+        alreadyRegisteredValue,
+    required TResult Function(
+            InvalidVerificationCodeAndPhoneNumberCombination value)
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
         invalidPhoneNumberAndPasswordCombination,
   }) =>
@@ -59,9 +57,9 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ServerError value)? serverError,
-    TResult? Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult? Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult? Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
   }) =>
@@ -69,9 +67,9 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
-    TResult Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
@@ -102,6 +100,8 @@ abstract class _$$ServerErrorCopyWith<$Res> {
   factory _$$ServerErrorCopyWith(
           _$ServerError value, $Res Function(_$ServerError) then) =
       __$$ServerErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String failureDescription});
 }
 
 /// @nodoc
@@ -111,63 +111,86 @@ class __$$ServerErrorCopyWithImpl<$Res>
   __$$ServerErrorCopyWithImpl(
       _$ServerError _value, $Res Function(_$ServerError) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? failureDescription = null,
+  }) {
+    return _then(_$ServerError(
+      failureDescription: null == failureDescription
+          ? _value.failureDescription
+          : failureDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ServerError implements ServerError {
-  const _$ServerError();
+  const _$ServerError({required this.failureDescription});
+
+  @override
+  final String failureDescription;
 
   @override
   String toString() {
-    return 'AuthFailure.serverError()';
+    return 'AuthFailure.serverError(failureDescription: $failureDescription)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ServerError);
+        (other.runtimeType == runtimeType &&
+            other is _$ServerError &&
+            (identical(other.failureDescription, failureDescription) ||
+                other.failureDescription == failureDescription));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, failureDescription);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerErrorCopyWith<_$ServerError> get copyWith =>
+      __$$ServerErrorCopyWithImpl<_$ServerError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverError,
-    required TResult Function() phoneNumberAlreadyInUse,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() invalidVerificationCode,
+    required TResult Function(String failureDescription) serverError,
+    required TResult Function() alreadyRegisteredValue,
+    required TResult Function()
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function() invalidPhoneNumberAndPasswordCombination,
   }) {
-    return serverError();
+    return serverError(failureDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? serverError,
-    TResult? Function()? phoneNumberAlreadyInUse,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? invalidVerificationCode,
+    TResult? Function(String failureDescription)? serverError,
+    TResult? Function()? alreadyRegisteredValue,
+    TResult? Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function()? invalidPhoneNumberAndPasswordCombination,
   }) {
-    return serverError?.call();
+    return serverError?.call(failureDescription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverError,
-    TResult Function()? phoneNumberAlreadyInUse,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? invalidVerificationCode,
+    TResult Function(String failureDescription)? serverError,
+    TResult Function()? alreadyRegisteredValue,
+    TResult Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function()? invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
   }) {
     if (serverError != null) {
-      return serverError();
+      return serverError(failureDescription);
     }
     return orElse();
   }
@@ -176,11 +199,11 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ServerError value) serverError,
-    required TResult Function(PhoneNumberAlreadyInUse value)
-        phoneNumberAlreadyInUse,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(InvalidVerificationCode value)
-        invalidVerificationCode,
+    required TResult Function(AlreadyRegisteredValue value)
+        alreadyRegisteredValue,
+    required TResult Function(
+            InvalidVerificationCodeAndPhoneNumberCombination value)
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
         invalidPhoneNumberAndPasswordCombination,
   }) {
@@ -191,9 +214,9 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ServerError value)? serverError,
-    TResult? Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult? Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult? Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
   }) {
@@ -204,9 +227,9 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
-    TResult Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
@@ -219,40 +242,176 @@ class _$ServerError implements ServerError {
 }
 
 abstract class ServerError implements AuthFailure {
-  const factory ServerError() = _$ServerError;
+  const factory ServerError({required final String failureDescription}) =
+      _$ServerError;
+
+  String get failureDescription;
+  @JsonKey(ignore: true)
+  _$$ServerErrorCopyWith<_$ServerError> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PhoneNumberAlreadyInUseCopyWith<$Res> {
-  factory _$$PhoneNumberAlreadyInUseCopyWith(_$PhoneNumberAlreadyInUse value,
-          $Res Function(_$PhoneNumberAlreadyInUse) then) =
-      __$$PhoneNumberAlreadyInUseCopyWithImpl<$Res>;
+abstract class _$$AlreadyRegisteredValueCopyWith<$Res> {
+  factory _$$AlreadyRegisteredValueCopyWith(_$AlreadyRegisteredValue value,
+          $Res Function(_$AlreadyRegisteredValue) then) =
+      __$$AlreadyRegisteredValueCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$PhoneNumberAlreadyInUseCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$PhoneNumberAlreadyInUse>
-    implements _$$PhoneNumberAlreadyInUseCopyWith<$Res> {
-  __$$PhoneNumberAlreadyInUseCopyWithImpl(_$PhoneNumberAlreadyInUse _value,
-      $Res Function(_$PhoneNumberAlreadyInUse) _then)
+class __$$AlreadyRegisteredValueCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$AlreadyRegisteredValue>
+    implements _$$AlreadyRegisteredValueCopyWith<$Res> {
+  __$$AlreadyRegisteredValueCopyWithImpl(_$AlreadyRegisteredValue _value,
+      $Res Function(_$AlreadyRegisteredValue) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$PhoneNumberAlreadyInUse implements PhoneNumberAlreadyInUse {
-  const _$PhoneNumberAlreadyInUse();
+class _$AlreadyRegisteredValue implements AlreadyRegisteredValue {
+  const _$AlreadyRegisteredValue();
 
   @override
   String toString() {
-    return 'AuthFailure.phoneNumberAlreadyInUse()';
+    return 'AuthFailure.alreadyRegisteredValue()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AlreadyRegisteredValue);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String failureDescription) serverError,
+    required TResult Function() alreadyRegisteredValue,
+    required TResult Function()
+        invalidVerificationCodeAndPhoneNumberCombination,
+    required TResult Function() invalidPhoneNumberAndPasswordCombination,
+  }) {
+    return alreadyRegisteredValue();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String failureDescription)? serverError,
+    TResult? Function()? alreadyRegisteredValue,
+    TResult? Function()? invalidVerificationCodeAndPhoneNumberCombination,
+    TResult? Function()? invalidPhoneNumberAndPasswordCombination,
+  }) {
+    return alreadyRegisteredValue?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String failureDescription)? serverError,
+    TResult Function()? alreadyRegisteredValue,
+    TResult Function()? invalidVerificationCodeAndPhoneNumberCombination,
+    TResult Function()? invalidPhoneNumberAndPasswordCombination,
+    required TResult orElse(),
+  }) {
+    if (alreadyRegisteredValue != null) {
+      return alreadyRegisteredValue();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(AlreadyRegisteredValue value)
+        alreadyRegisteredValue,
+    required TResult Function(
+            InvalidVerificationCodeAndPhoneNumberCombination value)
+        invalidVerificationCodeAndPhoneNumberCombination,
+    required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
+        invalidPhoneNumberAndPasswordCombination,
+  }) {
+    return alreadyRegisteredValue(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult? Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
+    TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
+        invalidPhoneNumberAndPasswordCombination,
+  }) {
+    return alreadyRegisteredValue?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ServerError value)? serverError,
+    TResult Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
+    TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
+        invalidPhoneNumberAndPasswordCombination,
+    required TResult orElse(),
+  }) {
+    if (alreadyRegisteredValue != null) {
+      return alreadyRegisteredValue(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AlreadyRegisteredValue implements AuthFailure {
+  const factory AlreadyRegisteredValue() = _$AlreadyRegisteredValue;
+}
+
+/// @nodoc
+abstract class _$$InvalidVerificationCodeAndPhoneNumberCombinationCopyWith<
+    $Res> {
+  factory _$$InvalidVerificationCodeAndPhoneNumberCombinationCopyWith(
+          _$InvalidVerificationCodeAndPhoneNumberCombination value,
+          $Res Function(_$InvalidVerificationCodeAndPhoneNumberCombination)
+              then) =
+      __$$InvalidVerificationCodeAndPhoneNumberCombinationCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidVerificationCodeAndPhoneNumberCombinationCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res,
+        _$InvalidVerificationCodeAndPhoneNumberCombination>
+    implements
+        _$$InvalidVerificationCodeAndPhoneNumberCombinationCopyWith<$Res> {
+  __$$InvalidVerificationCodeAndPhoneNumberCombinationCopyWithImpl(
+      _$InvalidVerificationCodeAndPhoneNumberCombination _value,
+      $Res Function(_$InvalidVerificationCodeAndPhoneNumberCombination) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InvalidVerificationCodeAndPhoneNumberCombination
+    implements InvalidVerificationCodeAndPhoneNumberCombination {
+  const _$InvalidVerificationCodeAndPhoneNumberCombination();
+
+  @override
+  String toString() {
+    return 'AuthFailure.invalidVerificationCodeAndPhoneNumberCombination()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PhoneNumberAlreadyInUse);
+            other is _$InvalidVerificationCodeAndPhoneNumberCombination);
   }
 
   @override
@@ -261,39 +420,37 @@ class _$PhoneNumberAlreadyInUse implements PhoneNumberAlreadyInUse {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverError,
-    required TResult Function() phoneNumberAlreadyInUse,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() invalidVerificationCode,
+    required TResult Function(String failureDescription) serverError,
+    required TResult Function() alreadyRegisteredValue,
+    required TResult Function()
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function() invalidPhoneNumberAndPasswordCombination,
   }) {
-    return phoneNumberAlreadyInUse();
+    return invalidVerificationCodeAndPhoneNumberCombination();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? serverError,
-    TResult? Function()? phoneNumberAlreadyInUse,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? invalidVerificationCode,
+    TResult? Function(String failureDescription)? serverError,
+    TResult? Function()? alreadyRegisteredValue,
+    TResult? Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function()? invalidPhoneNumberAndPasswordCombination,
   }) {
-    return phoneNumberAlreadyInUse?.call();
+    return invalidVerificationCodeAndPhoneNumberCombination?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverError,
-    TResult Function()? phoneNumberAlreadyInUse,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? invalidVerificationCode,
+    TResult Function(String failureDescription)? serverError,
+    TResult Function()? alreadyRegisteredValue,
+    TResult Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function()? invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
   }) {
-    if (phoneNumberAlreadyInUse != null) {
-      return phoneNumberAlreadyInUse();
+    if (invalidVerificationCodeAndPhoneNumberCombination != null) {
+      return invalidVerificationCodeAndPhoneNumberCombination();
     }
     return orElse();
   }
@@ -302,301 +459,52 @@ class _$PhoneNumberAlreadyInUse implements PhoneNumberAlreadyInUse {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ServerError value) serverError,
-    required TResult Function(PhoneNumberAlreadyInUse value)
-        phoneNumberAlreadyInUse,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(InvalidVerificationCode value)
-        invalidVerificationCode,
+    required TResult Function(AlreadyRegisteredValue value)
+        alreadyRegisteredValue,
+    required TResult Function(
+            InvalidVerificationCodeAndPhoneNumberCombination value)
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
         invalidPhoneNumberAndPasswordCombination,
   }) {
-    return phoneNumberAlreadyInUse(this);
+    return invalidVerificationCodeAndPhoneNumberCombination(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ServerError value)? serverError,
-    TResult? Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult? Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult? Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
   }) {
-    return phoneNumberAlreadyInUse?.call(this);
+    return invalidVerificationCodeAndPhoneNumberCombination?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
-    TResult Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
   }) {
-    if (phoneNumberAlreadyInUse != null) {
-      return phoneNumberAlreadyInUse(this);
+    if (invalidVerificationCodeAndPhoneNumberCombination != null) {
+      return invalidVerificationCodeAndPhoneNumberCombination(this);
     }
     return orElse();
   }
 }
 
-abstract class PhoneNumberAlreadyInUse implements AuthFailure {
-  const factory PhoneNumberAlreadyInUse() = _$PhoneNumberAlreadyInUse;
-}
-
-/// @nodoc
-abstract class _$$EmailAlreadyInUseCopyWith<$Res> {
-  factory _$$EmailAlreadyInUseCopyWith(
-          _$EmailAlreadyInUse value, $Res Function(_$EmailAlreadyInUse) then) =
-      __$$EmailAlreadyInUseCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$EmailAlreadyInUseCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$EmailAlreadyInUse>
-    implements _$$EmailAlreadyInUseCopyWith<$Res> {
-  __$$EmailAlreadyInUseCopyWithImpl(
-      _$EmailAlreadyInUse _value, $Res Function(_$EmailAlreadyInUse) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$EmailAlreadyInUse implements EmailAlreadyInUse {
-  const _$EmailAlreadyInUse();
-
-  @override
-  String toString() {
-    return 'AuthFailure.emailAlreadyInUse()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EmailAlreadyInUse);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() serverError,
-    required TResult Function() phoneNumberAlreadyInUse,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() invalidVerificationCode,
-    required TResult Function() invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return emailAlreadyInUse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? serverError,
-    TResult? Function()? phoneNumberAlreadyInUse,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? invalidVerificationCode,
-    TResult? Function()? invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return emailAlreadyInUse?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverError,
-    TResult Function()? phoneNumberAlreadyInUse,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? invalidVerificationCode,
-    TResult Function()? invalidPhoneNumberAndPasswordCombination,
-    required TResult orElse(),
-  }) {
-    if (emailAlreadyInUse != null) {
-      return emailAlreadyInUse();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ServerError value) serverError,
-    required TResult Function(PhoneNumberAlreadyInUse value)
-        phoneNumberAlreadyInUse,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(InvalidVerificationCode value)
-        invalidVerificationCode,
-    required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
-        invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return emailAlreadyInUse(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ServerError value)? serverError,
-    TResult? Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(InvalidVerificationCode value)? invalidVerificationCode,
-    TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
-        invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return emailAlreadyInUse?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ServerError value)? serverError,
-    TResult Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(InvalidVerificationCode value)? invalidVerificationCode,
-    TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
-        invalidPhoneNumberAndPasswordCombination,
-    required TResult orElse(),
-  }) {
-    if (emailAlreadyInUse != null) {
-      return emailAlreadyInUse(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class EmailAlreadyInUse implements AuthFailure {
-  const factory EmailAlreadyInUse() = _$EmailAlreadyInUse;
-}
-
-/// @nodoc
-abstract class _$$InvalidVerificationCodeCopyWith<$Res> {
-  factory _$$InvalidVerificationCodeCopyWith(_$InvalidVerificationCode value,
-          $Res Function(_$InvalidVerificationCode) then) =
-      __$$InvalidVerificationCodeCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InvalidVerificationCodeCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidVerificationCode>
-    implements _$$InvalidVerificationCodeCopyWith<$Res> {
-  __$$InvalidVerificationCodeCopyWithImpl(_$InvalidVerificationCode _value,
-      $Res Function(_$InvalidVerificationCode) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InvalidVerificationCode implements InvalidVerificationCode {
-  const _$InvalidVerificationCode();
-
-  @override
-  String toString() {
-    return 'AuthFailure.invalidVerificationCode()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InvalidVerificationCode);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() serverError,
-    required TResult Function() phoneNumberAlreadyInUse,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() invalidVerificationCode,
-    required TResult Function() invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return invalidVerificationCode();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? serverError,
-    TResult? Function()? phoneNumberAlreadyInUse,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? invalidVerificationCode,
-    TResult? Function()? invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return invalidVerificationCode?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverError,
-    TResult Function()? phoneNumberAlreadyInUse,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? invalidVerificationCode,
-    TResult Function()? invalidPhoneNumberAndPasswordCombination,
-    required TResult orElse(),
-  }) {
-    if (invalidVerificationCode != null) {
-      return invalidVerificationCode();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ServerError value) serverError,
-    required TResult Function(PhoneNumberAlreadyInUse value)
-        phoneNumberAlreadyInUse,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(InvalidVerificationCode value)
-        invalidVerificationCode,
-    required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
-        invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return invalidVerificationCode(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ServerError value)? serverError,
-    TResult? Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(InvalidVerificationCode value)? invalidVerificationCode,
-    TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
-        invalidPhoneNumberAndPasswordCombination,
-  }) {
-    return invalidVerificationCode?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ServerError value)? serverError,
-    TResult Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(InvalidVerificationCode value)? invalidVerificationCode,
-    TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
-        invalidPhoneNumberAndPasswordCombination,
-    required TResult orElse(),
-  }) {
-    if (invalidVerificationCode != null) {
-      return invalidVerificationCode(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InvalidVerificationCode implements AuthFailure {
-  const factory InvalidVerificationCode() = _$InvalidVerificationCode;
+abstract class InvalidVerificationCodeAndPhoneNumberCombination
+    implements AuthFailure {
+  const factory InvalidVerificationCodeAndPhoneNumberCombination() =
+      _$InvalidVerificationCodeAndPhoneNumberCombination;
 }
 
 /// @nodoc
@@ -642,10 +550,10 @@ class _$InvalidPhoneNumberAndPasswordCombination
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverError,
-    required TResult Function() phoneNumberAlreadyInUse,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() invalidVerificationCode,
+    required TResult Function(String failureDescription) serverError,
+    required TResult Function() alreadyRegisteredValue,
+    required TResult Function()
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function() invalidPhoneNumberAndPasswordCombination,
   }) {
     return invalidPhoneNumberAndPasswordCombination();
@@ -654,10 +562,9 @@ class _$InvalidPhoneNumberAndPasswordCombination
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? serverError,
-    TResult? Function()? phoneNumberAlreadyInUse,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? invalidVerificationCode,
+    TResult? Function(String failureDescription)? serverError,
+    TResult? Function()? alreadyRegisteredValue,
+    TResult? Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function()? invalidPhoneNumberAndPasswordCombination,
   }) {
     return invalidPhoneNumberAndPasswordCombination?.call();
@@ -666,10 +573,9 @@ class _$InvalidPhoneNumberAndPasswordCombination
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverError,
-    TResult Function()? phoneNumberAlreadyInUse,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? invalidVerificationCode,
+    TResult Function(String failureDescription)? serverError,
+    TResult Function()? alreadyRegisteredValue,
+    TResult Function()? invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function()? invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),
   }) {
@@ -683,11 +589,11 @@ class _$InvalidPhoneNumberAndPasswordCombination
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ServerError value) serverError,
-    required TResult Function(PhoneNumberAlreadyInUse value)
-        phoneNumberAlreadyInUse,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(InvalidVerificationCode value)
-        invalidVerificationCode,
+    required TResult Function(AlreadyRegisteredValue value)
+        alreadyRegisteredValue,
+    required TResult Function(
+            InvalidVerificationCodeAndPhoneNumberCombination value)
+        invalidVerificationCodeAndPhoneNumberCombination,
     required TResult Function(InvalidPhoneNumberAndPasswordCombination value)
         invalidPhoneNumberAndPasswordCombination,
   }) {
@@ -698,9 +604,9 @@ class _$InvalidPhoneNumberAndPasswordCombination
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ServerError value)? serverError,
-    TResult? Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult? Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult? Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult? Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
   }) {
@@ -711,9 +617,9 @@ class _$InvalidPhoneNumberAndPasswordCombination
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
-    TResult Function(PhoneNumberAlreadyInUse value)? phoneNumberAlreadyInUse,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(InvalidVerificationCode value)? invalidVerificationCode,
+    TResult Function(AlreadyRegisteredValue value)? alreadyRegisteredValue,
+    TResult Function(InvalidVerificationCodeAndPhoneNumberCombination value)?
+        invalidVerificationCodeAndPhoneNumberCombination,
     TResult Function(InvalidPhoneNumberAndPasswordCombination value)?
         invalidPhoneNumberAndPasswordCombination,
     required TResult orElse(),

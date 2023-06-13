@@ -8,7 +8,7 @@ part 'user.freezed.dart';
 ///It contains the following required fields: [Name] fullName and [PhoneNumber] phoneNumber.
 ///It contains the following optional fields: [Email] email, [Currencies] currency, [String] authToken and [String] profilePictureURL.
 @freezed
-abstract class User implements _$User {
+abstract class User with _$User {
   const User._();
 
   factory User({

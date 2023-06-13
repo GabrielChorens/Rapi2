@@ -7,7 +7,7 @@ part 'user_dto.freezed.dart';
 
 ///A data transfer object that represents an user.
 @freezed
-abstract class UserDTO implements _$UserDTO {
+abstract class UserDTO with _$UserDTO {
   const UserDTO._();
   ///Default constructor for the [UserDTO] data transfer object.
   ///It contains the following required fields: [String] name, [String] lastName, [String] phoneNumber, [String] callCode and [String] countryCode.
@@ -71,5 +71,20 @@ abstract class UserDTO implements _$UserDTO {
       currency: json['currency'] as String?,
       profilePictureURL: json['profile_picture'] as String?,
     );
+  }
+
+  ///Converts a [UserDTO] data transfer object to a JSON object.
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'last_name': lastName,
+      'phone_number': phoneNumber,
+      'call_code': callCode,
+      'country_code': countryCode,
+      'email': email,
+      'auth_token': authToken,
+      'currency': currency,
+      'profile_picture': profilePictureURL,
+    };
   }
 }

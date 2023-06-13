@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:rapi2/infraestructure/network/api/server_responses.dart';
-
-import '../../../domain/value_objects/user_value_objects.dart';
-import '../../../domain/value_objects/core/validation_code.dart';
+import '../../core/errors/unexpected_api_connection_error.dart';
+import 'server_responses.dart';
 import '../dio_provider.dart';
 
 class AuthApiClient {
@@ -11,41 +9,36 @@ class AuthApiClient {
 
   ///Api client for the authentication endpoints
   ///Injectable with [DioProvider].
-  
+
   AuthApiClient(this._dioProvider);
 
-
-  ///Login endpoint. It requires a [PhoneNumber] and a [Password].
-  ///It also accepts an optional [FirebaseToken].
+  ///Login endpoint. It requires String parameters [phoneNumber], [callCode], [countryCode] and [password].
   ///If the login is successful, it returns a [ServerSuccess] with the response data.
   ///If the login fails, it returns an [ApiConnectionFailure].
   ///It sets the auth token in the [DioProvider] if the login is successful.
-  
+
   Future<Either<ApiConnectionFailure, ServerSuccess>> login({
-    required PhoneNumber phoneNumber,
-    required Password password,
-    FirebaseToken firebaseToken = const FirebaseToken(),
+    required String phoneNumber,
+    required String callCode,
+    required String countryCode,
+    required String password,
+    required String firebaseToken,
   }) async {
     final dio = _dioProvider.dio;
-    final phoneNumberStr = phoneNumber.phoneNumber.getOrCrash();
-    final callCodeStr = phoneNumber.callCode.getOrCrash();
-    final countryCodeStr = phoneNumber.countryCode;
-    final passwordStr = password.getOrCrash();
-    final firebaseTokenStr = firebaseToken.firebaseToken;
     try {
       Response response = await dio.post(
         '/auth/login',
         data: {
-          'phone_number': phoneNumberStr,
-          'call_code': callCodeStr,
-          'country_code': countryCodeStr,
-          'password': passwordStr,
-          'firebase_token': firebaseTokenStr,
+          'phone_number': phoneNumber,
+          'call_code': callCode,
+          'country_code': countryCode,
+          'password': password,
+          'firebase_token': firebaseToken,
         },
       );
       Map<String, dynamic> responseData = response.data;
       final String? authToken = responseData['auth_token'];
-      if(authToken != null) _dioProvider.setAuthToken(authToken);
+      if (authToken != null) _dioProvider.setAuthToken(authToken);
       return right(
         ServerSuccess(data: responseData),
       );
@@ -56,39 +49,34 @@ class AuthApiClient {
     }
   }
 
-  ///Sign up endpoint. It requires a [Name], [PhoneNumber] and a [Password].
-  ///It also accepts an optional [Email] and a [FirebaseToken].
+  ///Sign up endpoint.
+  ///It requires [firstName], [lastName], [phoneNumber], [callCode], [countryCode], [email] and [password].
   ///If the sign up is successful, it returns a [ServerSuccess].
   ///If the sign up fails, it returns an [ApiConnectionFailure].
-  
+
   Future<Either<ApiConnectionFailure, ServerSuccess>> signUp({
-    required Name name,
-    required PhoneNumber phoneNumber,
-    required Password password,
-    Email? email,
-    FirebaseToken firebaseToken = const FirebaseToken(),
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String callCode,
+    required String countryCode,
+    required String password,
+    String? email,
+    required String firebaseToken,
   }) async {
     final dio = _dioProvider.dio;
-    final firstNameStr = name.firstName;
-    final lastNameStr = name.lastName;
-    final phoneNumberStr = phoneNumber.phoneNumber.getOrCrash();
-    final callCodeStr = phoneNumber.callCode.getOrCrash();
-    final countryCodeStr = phoneNumber.countryCode;
-    final passwordStr = password.getOrCrash();
-    final emailStr = email?.getOrCrash();
-    final firebaseTokenStr = firebaseToken.firebaseToken;
     try {
       await dio.post(
         '/auth/sign-up',
         data: {
-          'name': firstNameStr,
-          'last_name': lastNameStr,
-          'phone_number': phoneNumberStr,
-          'call_code': callCodeStr,
-          'country_code': countryCodeStr,
-          'password': passwordStr,
-          'email': emailStr,
-          'firebase_token': firebaseTokenStr,
+          'name': firstName,
+          'last_name': lastName,
+          'phone_number': phoneNumber,
+          'call_code': callCode,
+          'country_code': countryCode,
+          'password': password,
+          'email': email,
+          'firebase_token': firebaseToken,
         },
       );
       return right(
@@ -101,22 +89,20 @@ class AuthApiClient {
     }
   }
 
-  ///Check values Endpoint. It requires an [Email].
+  ///Check values Endpoint. It requires String [email].
   ///Returns a [ServerSuccess] if the email is not registered.
   ///Throws an [ApiConnectionFailure.alreadyRegisteredValue] if the email is already registered.
   ///Throws an [ApiConnectionFailure] if the request fails.
-  
-  Future<Either<ApiConnectionFailure, ServerSuccess>>
-      checkEmailAvailability({
-    required Email email,
+
+  Future<Either<ApiConnectionFailure, ServerSuccess>> checkEmailAvailability({
+    required String email,
   }) async {
     final dio = _dioProvider.dio;
-    final emailStr = email.getOrCrash();
     try {
       Response response = await dio.post(
         '/auth/check-values',
         data: {
-          'email': emailStr,
+          'email': email,
         },
       );
       if (response.data['email'] == false) {
@@ -134,23 +120,22 @@ class AuthApiClient {
       );
     }
   }
-  
-  ///Check values Endpoint. It requires a [PhoneNumber].
+
+  ///Check values Endpoint. It requires a String [phoneNumber].
   ///Returns a [ServerSuccess] if the phone number is not registered.
   ///Throws an [ApiConnectionFailure.alreadyRegisteredValue] if the phone number is already registered.
   ///Throws an [ApiConnectionFailure] if the request fails.
-  
+
   Future<Either<ApiConnectionFailure, ServerSuccess>>
-      checkPhoneNUmberAlreadyRegistered({
-    required PhoneNumber phoneNumber,
+      checkPhoneNumberAvailability({
+    required String phoneNumber,
   }) async {
     final dio = _dioProvider.dio;
-    final phoneNumberStr = phoneNumber.getOrCrash();
     try {
       Response response = await dio.post(
         '/auth/check-values',
         data: {
-          'phone_number': phoneNumberStr,
+          'phone_number': phoneNumber,
         },
       );
       if (response.data['phone_number'] == false) {
@@ -169,21 +154,21 @@ class AuthApiClient {
     }
   }
 
-  ///Request validation code endpoint. It requires a [PhoneNumber].
+  ///Request validation code endpoint. It requires a String [phoneNumber].
+  ///IMPORTANT NOTE: This endpoints works with the full phone Number meaning:
   ///It sends a validation code to the phone number.
   ///Returns a [ServerSuccess] if the request was successful.
   ///Throws an [ApiConnectionFailure] if the request was unsuccessful.
-  
+
   Future<Either<ApiConnectionFailure, ServerSuccess>> requestValidationCode({
-    required PhoneNumber phoneNumber,
+    required String phoneNumber,
   }) async {
     final dio = _dioProvider.dio;
-    final phoneNumberStr = phoneNumber.getOrCrash();
     try {
       await dio.post(
         '/auth/request-validation-code',
         data: {
-          'phone_number': phoneNumberStr,
+          'phone_number': phoneNumber,
         },
       );
       return right(
@@ -195,40 +180,61 @@ class AuthApiClient {
       );
     }
   }
-  
-  ///Check validation code endpoint. It requires a [PhoneNumber] and a [ValidationCode].
+
+  ///Check validation code endpoint. It requires a String [phoneNumber], [callCode] and [validationCode].
   ///It checks if the validation code is correct.
   ///Returns a [ServerSuccess] if the validation code is correct.
   ///Throws an [ApiConnectionFailure.invalidValue] if the validation code is incorrect.
   ///Throws an [ApiConnectionFailure] if the request was unsuccessful.
-  
-  Future<Either<ApiConnectionFailure, ServerSuccess>> chekValidationCode({
-    required PhoneNumber phoneNumber,
-    required ValidationCode validationCode,
+
+  Future<Either<ApiConnectionFailure, ServerSuccess>> checkValidationCode({
+    required String phoneNumber,
+    required String callCode,
+    required String validationCode,
   }) async {
     final dio = _dioProvider.dio;
-    final callCodeStr = phoneNumber.callCode.getOrCrash();
-    final phoneNumberStr = phoneNumber.phoneNumber.getOrCrash();
-    final validationCodeStr = validationCode.getOrCrash();
     try {
       Response response = await dio.post(
         '/auth/check-validation-code',
         data: {
-          'phone_number': phoneNumberStr,
-          'call_code': callCodeStr,
-          'validation_code': validationCodeStr,
+          'phone_number': phoneNumber,
+          'call_code': callCode,
+          'validation_code': validationCode,
         },
       );
-      if(response.data == true){
+      if (response.data == 'true') {
         return right(
           const ServerSuccess(),
         );
-        }
-      else {
+      } else {
         return left(
           const ApiConnectionFailure.invalidValue(),
         );
       }
+    } on DioError catch (e) {
+      return left(
+        ApiConnectionFailure.fromDioError(e),
+      );
+    }
+  }
+
+  Future<Either<ApiConnectionFailure, ServerSuccess>> logout() async {
+    final dio = _dioProvider.dio;
+    if (_dioProvider.authToken == null) {
+      throw UnexpectedApiConnectionError(
+        const ApiConnectionFailure.badRequest(
+            detailedMessage:
+                'This user is not logged in. This shouldnt be possible'),
+      );
+    }
+    try {
+      await dio.post(
+        '/auth/logout',
+      );
+      _dioProvider.clearAuthToken();
+      return right(
+        const ServerSuccess(),
+      );
     } on DioError catch (e) {
       return left(
         ApiConnectionFailure.fromDioError(e),

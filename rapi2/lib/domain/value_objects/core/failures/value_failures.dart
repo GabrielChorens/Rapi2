@@ -43,6 +43,7 @@ sealed class ValueFailure with _$ValueFailure {
     String? detailedFailureMessage,
   }) = InvalidPhoneNumber;
 
+
   ///Address failures
   const factory ValueFailure.invalidCoordinates({
     @Default('invalid_coordinates') String failureMessage,

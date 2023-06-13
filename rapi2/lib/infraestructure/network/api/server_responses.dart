@@ -6,44 +6,45 @@ part 'server_responses.freezed.dart';
 abstract class ServerSuccess with _$ServerSuccess {
   const factory ServerSuccess({
     @Default({}) Map<String, dynamic> data,
-    @Default('success') String message,
+    @Default('success') String typeDescription,
   }) = _ServerSuccess;
 }
 
 @freezed
 abstract class ApiConnectionFailure with _$ApiConnectionFailure {
+
   //Value authentication errors
   const factory ApiConnectionFailure.alreadyRegisteredValue({
-    @Default('already_registered_value') String message,
+    @Default('already_registered_value') String typeDescription,
   }) = AlreadyRegisteredValue;
   const factory ApiConnectionFailure.invalidValue({
-    @Default('invalid_value') String message,
+    @Default('invalid_value') String typeDescription,
   }) = InvalidValue;
 
   //Server side errors
   const factory ApiConnectionFailure.badRequest({
-    @Default('bad_request') String message,
+    @Default('bad_request') String typeDescription,
     String? detailedMessage,
   }) = BadRequest;
   const factory ApiConnectionFailure.unauthorized({
-    @Default('unauthorized') String message,
+    @Default('unauthorized') String typeDescription,
   }) = Unauthorized;
   const factory ApiConnectionFailure.notFound({
-    @Default('not_found') String message,
+    @Default('not_found') String typeDescription,
   }) = NotFound;
   const factory ApiConnectionFailure.serverError({
-    @Default('server_error') String message,
+    @Default('server_error') String typeDescription,
   }) = ServerError;
   const factory ApiConnectionFailure.internetConnectionTimeout({
-    @Default('internet_connection_timeout') String message,
+    @Default('internet_connection_timeout') String typeDescription,
   }) = InternetConnectionTimeout;
   const factory ApiConnectionFailure.connectionError({
-    @Default('connection_error') String message,
+    @Default('connection_error') String typeDescription,
   }) = ConnectionError;
 
   //Unexpected error displays any other error that is not handled catching the message from the DioError
   const factory ApiConnectionFailure.unexpectedError({
-    @Default('unexpected_error') String message,
+    @Default('unexpected_error') String typeDescription,
     String? detailedMessage,
   }) = UnexpectedError;
 

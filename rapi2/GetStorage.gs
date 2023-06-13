@@ -1,0 +1,1 @@
+{"user":{"name":"Test","last_name":"User","phone_number":"1234567890","call_code":"1","country_code":"US","email":null,"auth_token":null,"currency":null,"profile_picture":null}}
