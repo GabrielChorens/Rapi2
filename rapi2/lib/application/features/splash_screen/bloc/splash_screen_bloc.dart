@@ -19,42 +19,67 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     this._servicesFacade,
   ) : super(const SplashScreenState.initial()) {
     on<SplashScreenEvent>((event, emit) {
-      event.map(appStarted: (e) async {
-        final locationStatus =
-            await _servicesFacade.checkLocationServiceStatus();
-        locationStatus.fold((
-          serviceFailure,
-        ) {
-          if (serviceFailure is LocationPermissionDenied) {
-            emit(const SplashScreenState.locationPermisionsDenied());
-          }
-          emit(const SplashScreenState.locationDisabled());
-        }, (
-          locationEnabled,
-        ) {
-          emit(const SplashScreenState.locationEnabled());
-        });
-      }, activateLocationSelected: (e) async {
-        final result = await _servicesFacade.activateLocationService();
-        result.fold((serviceFailure) {
-          if (serviceFailure is LocationPermissionDenied) {
-            emit(const SplashScreenState.locationPermisionsDenied());
-          }
-          emit(const SplashScreenState.locationUnknownError());
-        }, (locationEnabled) {
-          emit(const SplashScreenState.locationEnabled());
-        });
-      }, ignoredLocationActivationSelection: (e) async {
-        emit(const SplashScreenState.locationDisabled());
-      }, checkUserAuthenticationStatus: (e) async {
-        final user = await _splashScreenFacade.getUserIfItsStoraged();
-        user.fold((splashScreenFailure) {
-          emit(const SplashScreenState.userUnauthenticated());
-        }, (user) {
-          _splashScreenFacade.setGlobalUser(user: user);
-          emit(const SplashScreenState.userAuthenticated());
-        });
-      });
+      event.map(
+        appStarted: (e) => _onAppStarted(e, emit),
+        activateLocationSelected: (e) => _onActivateLocationSelected(e, emit),
+        ignoredLocationActivationSelection: (e) => _onIgnoredLocationActivationSelection(e, emit),
+        checkUserAuthenticationStatus: (e) => _onCheckUserAuthenticationStatus(e, emit),
+      );
+    });
+  }
+
+  Future<void> _onAppStarted(
+    _AppStarted event,
+    Emitter<SplashScreenState> emit,
+  ) async {
+    final locationStatus =
+        await _servicesFacade.checkLocationServiceStatus();
+    locationStatus.fold((
+      serviceFailure,
+    ) {
+      if (serviceFailure is LocationPermissionDenied) {
+        emit(const SplashScreenState.locationPermisionsDenied());
+      }
+      emit(const SplashScreenState.locationDisabled());
+    }, (
+      locationEnabled,
+    ) {
+      emit(const SplashScreenState.locationEnabled());
+    });
+  }
+
+  Future<void> _onActivateLocationSelected(
+    _ActivateLocationSelected event,
+    Emitter<SplashScreenState> emit,
+  ) async {
+    final result = await _servicesFacade.activateLocationService();
+    result.fold((serviceFailure) {
+      if (serviceFailure is LocationPermissionDenied) {
+        emit(const SplashScreenState.locationPermisionsDenied());
+      }
+      emit(const SplashScreenState.locationUnknownError());
+    }, (locationEnabled) {
+      emit(const SplashScreenState.locationEnabled());
+    });
+  }
+
+  Future<void> _onIgnoredLocationActivationSelection(
+    _IgnoredLocationActivationSelection event,
+    Emitter<SplashScreenState> emit,
+  ) async {
+    emit(const SplashScreenState.locationDisabled());
+  }
+
+  Future<void> _onCheckUserAuthenticationStatus(
+    _CheckUserAuthenticationStatus event,
+    Emitter<SplashScreenState> emit,
+  ) async {
+    final user = await _splashScreenFacade.getUserIfItsStoraged();
+    user.fold((splashScreenFailure) {
+      emit(const SplashScreenState.userUnauthenticated());
+    }, (user) {
+      _splashScreenFacade.setGlobalUser(user: user);
+      emit(const SplashScreenState.userAuthenticated());
     });
   }
 }
