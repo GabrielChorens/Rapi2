@@ -2,9 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:rapi2/infraestructure/device/services/storage/user_storage_service.dart';
-import 'package:rapi2/domain/entities/user.dart';
-import 'package:rapi2/infraestructure/data_transfer_objects/user_dto.dart';
+import 'package:rapi2/infraestructure/data_transfer_objects/entities/user_dto.dart';
+import 'package:rapi2/infraestructure/services/storage/user_storage_service.dart';
 
 void main() async {
 
@@ -50,8 +49,6 @@ void main() async {
       countryCode: 'US',
     );
 
-    final User testUser = testUserDto.toDomain();
-
 
     test('should save user to storage', () async {
       // act
@@ -82,7 +79,7 @@ void main() async {
       final result = await userStorageService.getUser();
 
       // assert
-      expect(result, equals(some(testUser)));
+      expect(result, equals(some(testUserDto)));
     });
   });
 }

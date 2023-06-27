@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:logging/logging.dart';
+import 'package:rapi2/core/injection/dependencies_injection.dart';
 
 main() async {
+  //Initialize getStorage
   await GetStorage.init();
+  //Initialize logger
+  Logger.root.level = Level.ALL; // Log all messages.
+  Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
+    print('${record.level.name}: ${record.time}: ${record.message} ${record.error} ${record.stackTrace}');
+  });
+  //Initialize dependency injection
+  configureDependencies();
+  //Run app
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

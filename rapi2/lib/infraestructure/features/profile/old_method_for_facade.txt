@@ -1,0 +1,135 @@
+@override
+  Future<Either<ProfileFailure, KtList<Address>>> getAddresses() async {
+    final addressStorageOperationResult =
+        await _addressStorageService.getAddresses();
+    return addressStorageOperationResult.fold(
+      (failure) async {
+        final result = await _profileApiClient.getAllAddresses();
+        return result.fold(
+          (failure) => left(ServerError(failureTrace: failure)),
+          (success) async {
+            if (success.dataAsList.isNotEmpty) {
+              final addresses = KtList.from(success.dataAsList
+                  .map((address) => AddressDTO.fromJson(address)));
+              final addressStorageOperationResult =
+                  await _addressStorageService.createAddresses(addresses);
+              return addressStorageOperationResult.fold(
+                  (failure) => left(StorageError(failureTrace: failure)),
+                  (success) =>
+                      right(addresses.map((address) => address.toDomain())));
+            }
+            return left(const ServerError(
+                failureTrace: UnexpectedError(
+                    failureTrace: MessageFromServer(message: 'no_data'))));
+          },
+        );
+      },
+      (success) => right(success.map((address) => address.toDomain())),
+    );
+  }
+
+  @override
+  Future<Either<ProfileFailure, Unit>> createAddress(
+      {required AddressValueObject address}) async {
+    final AddressValueObject(
+      :name,
+      :addressName,
+      :addressDetailed,
+      :coordinates
+    ) = address;
+    final (latitude, longitude) =
+        (coordinates.getOrCrash().latitude, coordinates.getOrCrash().longitude);
+
+    final result = await _profileApiClient.createAddress(
+      name: name,
+      addressName: addressName,
+      addressNote: addressDetailed,
+      latitude: latitude,
+      longitude: longitude,
+    );
+    return result.fold(
+      (failure) => left(ServerError(failureTrace: failure)),
+      (success) async {
+        if (success.data.isNotEmpty) {
+          AddressDTO addressDTO = AddressDTO.fromJson(success.data);
+          final addressStorageOperationResult =
+              await _addressStorageService.createAddress(addressDTO);
+          return addressStorageOperationResult.fold(
+            (failure) => left(StorageError(failureTrace: failure)),
+            (success) => right(unit),
+          );
+        }
+        return left(const ServerError(
+            failureTrace: UnexpectedError(
+                failureTrace: MessageFromServer(message: 'no_data'))));
+      },
+    );
+  }
+
+  @override
+  Future<Either<ProfileFailure, Unit>> updateAddress(
+      {required Address address}) async {
+    
+    
+    final id = address.id;
+    final AddressValueObject(
+      :name,
+      :addressName,
+      :addressDetailed,
+      :coordinates,
+    ) = address.address;
+    final (
+      latitude,
+      longitude,
+    ) = (
+      coordinates.getOrCrash().latitude,
+      coordinates.getOrCrash().longitude,
+    );
+
+    final result = await _profileApiClient.updateAddressByID(
+      addressId: id,
+      name: name,
+      addressName: addressName,
+      addressNote: addressDetailed,
+      latitude: latitude,
+      longitude: longitude,
+    );
+
+    return result.fold(
+      (failure) => left(ServerError(failureTrace: failure)),
+      (success) async {
+        if (success.data.isNotEmpty) {
+          AddressDTO addressDTO = AddressDTO.fromJson(success.data);
+          final addressStorageOperationResult =
+              await _addressStorageService.updateAddress(addressDTO);
+          return addressStorageOperationResult.fold(
+            (failure) => left(StorageError(failureTrace: failure)),
+            (success) => right(unit),
+          );
+        }
+        return left(const ServerError(
+            failureTrace: UnexpectedError(
+                failureTrace: MessageFromServer(message: 'no_data'))));
+      },
+    );
+
+  }
+
+  @override
+  Future<Either<ProfileFailure, Unit>> deleteAddress({
+    required Address address,
+  }) async {
+    int id = address.id;
+    final result = await _profileApiClient.deleteAddressByID(addressId: id);
+    return result.fold(
+      (failure) => left(ServerError(failureTrace: failure)),
+      (success) async {
+        final addressStorageOperationResult =
+            await _addressStorageService.deleteAddressByID(id);
+        return addressStorageOperationResult.fold(
+          (failure) => left(StorageError(failureTrace: failure)),
+          (success) => right(unit),
+        );
+      },
+    );
+  }

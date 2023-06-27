@@ -14,7 +14,7 @@ void main() {
       final coordinate = Coordinate(longitude, latitude);
 
       // Assert
-      expect(coordinate.value, left(const ValueFailure.invalidCoordinates(detailedFailureMessage: 'longitude: $longitude, latitude: $latitude. Longitude must be between -180 and 180, latitude must be between -90 and 90')));
+      expect(coordinate.value, left(const InvalidCoordinates()));
     });
 
     test('Should return ValueFailure when longitude is < -180', () {
@@ -26,7 +26,7 @@ void main() {
       final coordinate = Coordinate(longitude, latitude);
 
       // Assert
-      expect(coordinate.value, left(const ValueFailure.invalidCoordinates(detailedFailureMessage: 'longitude: $longitude, latitude: $latitude. Longitude must be between -180 and 180, latitude must be between -90 and 90')));
+      expect(coordinate.value, left(const InvalidCoordinates()));
     });
 
     test('Should return ValueFailure when latitude is > 90', () {
@@ -38,7 +38,7 @@ void main() {
       final coordinate = Coordinate(longitude, latitude);
 
       // Assert
-      expect(coordinate.value, left(const ValueFailure.invalidCoordinates(detailedFailureMessage: 'longitude: $longitude, latitude: $latitude. Longitude must be between -180 and 180, latitude must be between -90 and 90')));
+      expect(coordinate.value, left(const InvalidCoordinates()));
     });
 
     test('Should return ValueFailure when latitude is < -90', () {
@@ -50,7 +50,7 @@ void main() {
       final coordinate = Coordinate(longitude, latitude);
 
       // Assert
-      expect(coordinate.value, left(const ValueFailure.invalidCoordinates(detailedFailureMessage: 'longitude: $longitude, latitude: $latitude. Longitude must be between -180 and 180, latitude must be between -90 and 90')));
+      expect(coordinate.value, left(const InvalidCoordinates()));
     });
 
     test('Should create a new Coordinate when input is valid', () {

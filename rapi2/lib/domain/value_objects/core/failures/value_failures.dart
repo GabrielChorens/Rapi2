@@ -1,58 +1,45 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../../core/error_handle/failure.dart';
 
-part 'value_failures.freezed.dart';
+sealed class ValueFailure extends Failure {
+  const ValueFailure();
+}
 
-@freezed
-sealed class ValueFailure with _$ValueFailure {
-  ///Common failures
+//Common failures
+final class EmptyField extends ValueFailure {
+  const EmptyField();
+}
 
-  const factory ValueFailure.emptyField({
-    @Default('empty_field') String failureMessage,
-    String? detailedFailureMessage,
-  }) = EmptyField;
+final class NullField extends ValueFailure {
+  const NullField();
+}
 
-  const factory ValueFailure.nullField({
-    @Default('null_field') String failureMessage,
-    String? detailedFailureMessage,
-  }) = NullField;
+//User failures
+final class InvalidName extends ValueFailure {
+  const InvalidName();
+}
 
-  ///User failures
+final class InvalidEmail extends ValueFailure {
+  const InvalidEmail();
+}
 
-  const factory ValueFailure.invalidName({
-    @Default('invalid_name') String failureMessage,
-    String? detailedFailureMessage,
-  }) = InvalidName;
+final class ShortPassword extends ValueFailure {
+  const ShortPassword();
+}
 
-  const factory ValueFailure.invalidEmail({
-    @Default('invalid_email') String failureMessage,
-    String? detailedFailureMessage,
-  }) = InvalidEmail;
+final class InvalidNumber extends ValueFailure {
+  const InvalidNumber();
+}
 
-  const factory ValueFailure.shortPassword({
-    @Default('short_password') String failureMessage,
-    String? detailedFailureMessage,
-  }) = ShortPassword;
+final class InvalidPhoneNumber extends ValueFailure {
+  const InvalidPhoneNumber();
+}
 
-  const factory ValueFailure.invalidNumber({
-    @Default('invalid_number') String failureMessage,
-    String? detailedFailureMessage,
-  }) = InvalidNumber;
+//Address failures
+final class InvalidCoordinates extends ValueFailure {
+  const InvalidCoordinates();
+}
 
-  const factory ValueFailure.invalidPhoneNumber({
-    @Default('invalid_phone_number') String failureMessage,
-    String? detailedFailureMessage,
-  }) = InvalidPhoneNumber;
-
-
-  ///Address failures
-  const factory ValueFailure.invalidCoordinates({
-    @Default('invalid_coordinates') String failureMessage,
-    String? detailedFailureMessage,
-  }) = InvalidCoordinates;
-
-  ///Business failures
-  const factory ValueFailure.invalidRating({
-    @Default('invalid_rating') String failureMessage,
-    String? detailedFailureMessage,
-  }) = InvalidRating;
+//Business failures
+final class InvalidRating extends ValueFailure {
+  const InvalidRating();
 }

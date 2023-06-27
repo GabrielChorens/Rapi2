@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../core/errors/unexpected_api_connection_error.dart';
+import 'package:injectable/injectable.dart';
 import 'server_responses.dart';
 import '../dio_provider.dart';
 
+@lazySingleton
 class AuthApiClient {
   final DioProvider _dioProvider;
 
@@ -24,9 +25,8 @@ class AuthApiClient {
     required String password,
     required String firebaseToken,
   }) async {
-    final dio = _dioProvider.dio;
     try {
-      Response response = await dio.post(
+      Response response = await _dioProvider.dio.post(
         '/auth/login',
         data: {
           'phone_number': phoneNumber,
@@ -37,14 +37,12 @@ class AuthApiClient {
         },
       );
       Map<String, dynamic> responseData = response.data;
-      final String? authToken = responseData['auth_token'];
-      if (authToken != null) _dioProvider.setAuthToken(authToken);
       return right(
         ServerSuccess(data: responseData),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return left(
-        ApiConnectionFailure.fromDioError(e),
+        ApiConnectionFailure.fromDioException(e),
       );
     }
   }
@@ -64,9 +62,8 @@ class AuthApiClient {
     String? email,
     required String firebaseToken,
   }) async {
-    final dio = _dioProvider.dio;
     try {
-      await dio.post(
+      await _dioProvider.dio.post(
         '/auth/sign-up',
         data: {
           'name': firstName,
@@ -82,9 +79,9 @@ class AuthApiClient {
       return right(
         const ServerSuccess(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return left(
-        ApiConnectionFailure.fromDioError(e),
+        ApiConnectionFailure.fromDioException(e),
       );
     }
   }
@@ -97,9 +94,8 @@ class AuthApiClient {
   Future<Either<ApiConnectionFailure, ServerSuccess>> checkEmailAvailability({
     required String email,
   }) async {
-    final dio = _dioProvider.dio;
     try {
-      Response response = await dio.post(
+      Response response = await _dioProvider.dio.post(
         '/auth/check-values',
         data: {
           'email': email,
@@ -111,12 +107,12 @@ class AuthApiClient {
         );
       } else {
         return left(
-          const ApiConnectionFailure.alreadyRegisteredValue(),
+          const AlreadyRegistered(),
         );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return left(
-        ApiConnectionFailure.fromDioError(e),
+        ApiConnectionFailure.fromDioException(e),
       );
     }
   }
@@ -130,9 +126,8 @@ class AuthApiClient {
       checkPhoneNumberAvailability({
     required String phoneNumber,
   }) async {
-    final dio = _dioProvider.dio;
     try {
-      Response response = await dio.post(
+      Response response = await _dioProvider.dio.post(
         '/auth/check-values',
         data: {
           'phone_number': phoneNumber,
@@ -144,12 +139,12 @@ class AuthApiClient {
         );
       } else {
         return left(
-          const ApiConnectionFailure.alreadyRegisteredValue(),
+          const AlreadyRegistered(),
         );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return left(
-        ApiConnectionFailure.fromDioError(e),
+        ApiConnectionFailure.fromDioException(e),
       );
     }
   }
@@ -163,9 +158,8 @@ class AuthApiClient {
   Future<Either<ApiConnectionFailure, ServerSuccess>> requestValidationCode({
     required String phoneNumber,
   }) async {
-    final dio = _dioProvider.dio;
     try {
-      await dio.post(
+      await _dioProvider.dio.post(
         '/auth/request-validation-code',
         data: {
           'phone_number': phoneNumber,
@@ -174,9 +168,9 @@ class AuthApiClient {
       return right(
         const ServerSuccess(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return left(
-        ApiConnectionFailure.fromDioError(e),
+        ApiConnectionFailure.fromDioException(e),
       );
     }
   }
@@ -188,15 +182,16 @@ class AuthApiClient {
   ///Throws an [ApiConnectionFailure] if the request was unsuccessful.
 
   Future<Either<ApiConnectionFailure, ServerSuccess>> checkValidationCode({
+    required String countryCode,
     required String phoneNumber,
     required String callCode,
     required String validationCode,
   }) async {
-    final dio = _dioProvider.dio;
     try {
-      Response response = await dio.post(
+      Response response = await _dioProvider.dio.post(
         '/auth/check-validation-code',
         data: {
+          'country_code': countryCode,
           'phone_number': phoneNumber,
           'call_code': callCode,
           'validation_code': validationCode,
@@ -208,36 +203,12 @@ class AuthApiClient {
         );
       } else {
         return left(
-          const ApiConnectionFailure.invalidValue(),
+          const InvalidValue(),
         );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return left(
-        ApiConnectionFailure.fromDioError(e),
-      );
-    }
-  }
-
-  Future<Either<ApiConnectionFailure, ServerSuccess>> logout() async {
-    final dio = _dioProvider.dio;
-    if (_dioProvider.authToken == null) {
-      throw UnexpectedApiConnectionError(
-        const ApiConnectionFailure.badRequest(
-            detailedMessage:
-                'This user is not logged in. This shouldnt be possible'),
-      );
-    }
-    try {
-      await dio.post(
-        '/auth/logout',
-      );
-      _dioProvider.clearAuthToken();
-      return right(
-        const ServerSuccess(),
-      );
-    } on DioError catch (e) {
-      return left(
-        ApiConnectionFailure.fromDioError(e),
+        ApiConnectionFailure.fromDioException(e),
       );
     }
   }

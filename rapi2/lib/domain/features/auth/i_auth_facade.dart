@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
+import 'package:rapi2/domain/entities/user.dart';
 
 import '../../value_objects/user_value_objects.dart';
 import '../../value_objects/core/validation_code.dart';
 import 'auth_failure.dart';
 
-abstract class IAuthFacade {
+abstract interface class IAuthFacade {
 
   Future<Either<AuthFailure, Unit>> signUp({
     required Name fullName,
@@ -14,11 +15,20 @@ abstract class IAuthFacade {
     FirebaseToken firebaseToken = const FirebaseToken(),
   });
 
-  Future<Either<AuthFailure, Unit>> login({
+  Future<Either<AuthFailure, User>> login({
     required PhoneNumber phoneNumber,
     required Password password,
     FirebaseToken firebaseToken = const FirebaseToken(),
   });
+
+  Future<void> setUser({
+    required User user,
+  });
+
+  Future<void> storageUser({
+    required User user,
+  });
+
 
   Future<Either<AuthFailure, Unit>> checkPhoneNumberAvailability({
     required PhoneNumber phoneNumber,
@@ -35,6 +45,4 @@ abstract class IAuthFacade {
     required PhoneNumber phoneNumber,
     required ValidationCode validationCode,
   });
-
-  Future<Either<AuthFailure, Unit>> logout();
 }

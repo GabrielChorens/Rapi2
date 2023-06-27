@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rapi2/domain/value_objects/core/errors/unexpected_value_error.dart';
+import 'package:rapi2/core/error_handle/unexpected_error.dart';
 import 'package:rapi2/domain/value_objects/user_value_objects.dart';
 
 void main() {
@@ -9,7 +9,7 @@ void main() {
       final failedValueObject = NumberAsString('invalid input');
 
       // Assert
-      expect(() => failedValueObject.getOrCrash(), throwsA(isA<UnexpectedValueError>()));
+      expect(() => failedValueObject.getOrCrash(), throwsA(isA<UnexpectedError>()));
     });
   });
 }

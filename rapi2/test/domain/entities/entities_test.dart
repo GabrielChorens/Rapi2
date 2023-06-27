@@ -12,7 +12,8 @@ void main() {
     test('should create a valid Address instance', () {
       // Arrange
       const int id = 1;
-      Coordinate coordinates = Coordinate(40.712776, -74.005974); // New York coordinates
+      Coordinate coordinates =
+          Coordinate(40.712776, -74.005974); // New York coordinates
       const String addressName = 'Home';
       const String addressDetailed = '123, Main Street, New York';
       const String name = 'Home address';
@@ -45,7 +46,8 @@ void main() {
       const String phoneNumber = '1234567890';
       final Rating rating = Rating(4); // rating is a int between 0 and 5
       const String address = '123, Main Street, New York';
-      Coordinate coordinates = Coordinate(40.712776, -74.005974); // New York coordinates
+      Coordinate coordinates =
+          Coordinate(40.712776, -74.005974); // New York coordinates
       const int deliveryTime = 30; // delivery time in minutes
       const bool bookingEnabled = true;
       const String businessPictureURL = 'http://example.com/picture.jpg';
@@ -62,7 +64,7 @@ void main() {
         coordinates: coordinates,
         deliveryTime: deliveryTime,
         bookingEnabled: bookingEnabled,
-        businessPictureURL: businessPictureURL, 
+        businessPictureURL: businessPictureURL,
         products: products,
       );
 
@@ -99,6 +101,8 @@ void main() {
         price: price,
         deliveryTime: deliveryTime,
         pictureURL: pictureURL,
+        weight: null,
+        stock: null,
       );
 
       // Assert
@@ -151,11 +155,14 @@ void main() {
           phoneNumber: NumberAsString('1234567890'),
           countryCode: 'US');
 
-
       // Act
       final user = User(
         fullName: fullName,
         phoneNumber: phoneNumber,
+        email: null,
+        currency: null,
+        authToken: null,
+        profilePictureURL: null,
       );
 
       // Assert
@@ -163,5 +170,4 @@ void main() {
       expect(user.phoneNumber, phoneNumber);
     });
   });
-  
 }

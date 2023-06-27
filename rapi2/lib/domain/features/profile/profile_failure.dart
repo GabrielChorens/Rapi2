@@ -1,14 +1,30 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../core/error_handle/failure.dart';
 
-part 'profile_failure.freezed.dart';
+///A sealed class union that represents the possible failures that can occur during the profile edition and reading proccess.
 
-///A freezed union that represents the possible failures that can occur during the profile edition and reading proccess.
-@freezed
-abstract class ProfileFailure with _$ProfileFailure {
-  const factory ProfileFailure.serverError({
-    required String failureDescription,
-  }) = ServerError;
-  const factory ProfileFailure.noUserFound({
-    @Default('no_user_found') String failureDescription,}
-  ) = NoUserFound;
+sealed class ProfileFailure extends Failure {
+  const ProfileFailure();
 }
+
+final class ServerError extends ProfileFailure {
+  @override
+  final Failure? failureTrace;
+  const ServerError({required this.failureTrace});
+}
+
+final class StorageError extends ProfileFailure {
+  @override
+  final Failure? failureTrace;
+  const StorageError({this.failureTrace});
+}
+
+final class NoUserFound extends ProfileFailure {
+  const NoUserFound();
+}
+
+final class ImageSelectionFailure extends ProfileFailure {
+    @override
+  final Failure? failureTrace;
+  const ImageSelectionFailure({required this.failureTrace});
+}
+

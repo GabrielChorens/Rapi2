@@ -41,10 +41,6 @@ void main() {
 
       //Assert
       expect(result.isRight(), true);
-      String resultAuthToken =
-          result.fold((l) => '', (r) => r.data['auth_token']);
-      expect('Bearer $resultAuthToken',
-          equals(dioProvider.dio.options.headers['Authorization']));
     });
 
     test(
@@ -52,7 +48,7 @@ void main() {
         () async {
 
       //Arrange
-      const String testPhoneNumber = '12345678';
+      const String testPhoneNumber = '85620600';
       const String testCallCode = '505';
       const String testCountryCode = 'NI';
       const String testPassword = '12345678';
@@ -67,7 +63,7 @@ void main() {
       );
 
       //Assert
-      expect(result, equals(left(const ApiConnectionFailure.notFound())));
+      expect(result, equals(left(const NotFound())));
     });
 
     test(
@@ -90,43 +86,43 @@ void main() {
       );
 
       //Assert
-      expect(
-          result,
-          equals(left(const ApiConnectionFailure.badRequest(
-              detailedMessage: 'Invalid Credentials'))));
+    
+      expect(result.fold((l) => l, (_) => _) is BadRequest, true);
+      expect(result.fold((l) => l.failureTrace, (r) => null), equals(const MessageFromServer(message: 'Invalid Credentials')));
     });
   });
 
   group('signUp', () {
-    test(
-        'Should throw an ApiConecctionFailure.badRequest when an already registered user tries to Sign Up',
-        () async {
+    //At 6/19/2023 Api did not emits an error when a user tries to Sign Up with an already registered phone number
 
-      //Arrange
-      const String testFirstName = 'gabriel';
-      const String testLastName = 'chorens';
-      const String testPhoneNumber = '85883441';
-      const String testCallCode = '505';
-      const String testCountryCode = 'NI';
-      const String testPassword = '12345678';
+    // test(
+    //     'Should throw an ApiConecctionFailure.badRequest when an already registered user tries to Sign Up',
+    //     () async {
+
+    //   //Arrange
+    //   const String testFirstName = 'gabriel';
+    //   const String testLastName = 'chorens';
+    //   const String testPhoneNumber = '85883441';
+    //   const String testCallCode = '505';
+    //   const String testCountryCode = 'NI';
+    //   const String testPassword = '12345678';
  
-      //Act
-      final result = await authApiClient.signUp(
-        firstName: testFirstName,
-        lastName: testLastName,
-        phoneNumber: testPhoneNumber,
-        callCode: testCallCode, 
-        countryCode: testCountryCode,
-        password: testPassword,
-        firebaseToken: testFirebaseToken,
-      );
+    //   //Act
+    //   final result = await authApiClient.signUp(
+    //     firstName: testFirstName,
+    //     lastName: testLastName,
+    //     phoneNumber: testPhoneNumber,
+    //     callCode: testCallCode, 
+    //     countryCode: testCountryCode,
+    //     password: testPassword,
+    //     firebaseToken: testFirebaseToken,
+    //   );
 
-      //Assert
-      expect(
-          result,
-          equals(left(const ApiConnectionFailure.badRequest(
-              detailedMessage: 'phone_number: Already exist'))));
-    });
+    //   //Assert
+    //   expect(result.fold((l) => l, (_) => _) is BadRequest, true);
+    //   expect(result.fold((l) => l.getDescription(), (r) => null), equals('bad_request ||| detailedMessage: phone_number: Already exist'));
+
+    // });
   });
 
   group('checkEmailAvailability', () {
@@ -158,7 +154,7 @@ void main() {
       );
       //Assert
       expect(result,
-          equals(left(const ApiConnectionFailure.alreadyRegisteredValue())));
+          equals(left(const AlreadyRegistered())));
     });
   });
 
@@ -191,7 +187,7 @@ void main() {
       );
       //Assert
       expect(result,
-          equals(left(const ApiConnectionFailure.alreadyRegisteredValue())));
+          equals(left(const AlreadyRegistered())));
     });
   });
 
@@ -204,16 +200,18 @@ void main() {
       //Arrange
       const String testPhoneNumber = '85883441';
       const String testCallCode = '505';
-      const String testValidationCode = 'test';
+      const String testValidationCode = '123';
+      const String testCountryCode = 'NI';
       
       //Act
       final result = await authApiClient.checkValidationCode(
+        countryCode: testCountryCode,
         phoneNumber: testPhoneNumber,
         callCode: testCallCode,
         validationCode: testValidationCode,
       );
       //Assert
-      expect(result, equals(right(const ServerSuccess())));
+      expect (result.fold((l) => l,(r) => r), isA<ServerSuccess>());
     });
 
     //At the moment 6/7/2023 the server does not return any error if the validation code is incorrect

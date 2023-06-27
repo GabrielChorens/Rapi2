@@ -15,11 +15,18 @@ dependencies:
   freezed_annotation: ^2.2.0
   dartz: ^0.10.1
   kt_dart: ^1.1.0
+  recase: ^4.1.0
 
+# Injection dependencies  
+  injectable: ^2.1.2
+  get_it: ^7.6.0
 
 # Storage dependencies
   get_storage: ^2.1.1
-  
+  image_picker: ^0.8.9
+  path_provider: ^2.0.15
+
+
 # Bloc dependencies
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
@@ -30,10 +37,15 @@ dependencies:
   dio: ^5.1.2
   connectivity_plus: ^4.0.1
 
+# Location dependencies
+  geolocator: ^9.0.2
 
 # Test dependencies
   mockito: ^5.4.1
-  bloc_test: ^9.1.3
+  bloc_test: ^9.1.3  
+  stack_trace: ^1.11.0
+  logging: ^1.0.0
+
 
 # Flutter dependencies
   flutter:
@@ -48,9 +60,9 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
   freezed: ^2.3.4
-  build_runner: ^2.4.4
+  build_runner: ^2.4.5
   json_serializable: ^6.6.2
-
+  injectable_generator: ^2.1.6
 
 
 flutter:
@@ -63,26 +75,12 @@ flutter:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: fonts/Urbanist-Regular.ttf
+        - asset: fonts/Urbanist-Bold.ttf
+          weight: 700
+        - asset: fonts/Urbanist-SemiBold.ttf
+          weight: 600

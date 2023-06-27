@@ -1,8 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:rapi2/domain/features/splash_screen/splash_failure.dart';
 
-abstract class ISplashScreenFacade{
-  Future<Either<SplashFailure, Unit>> checkUserItsRegistered();
-  Future<Either<SplashFailure, Unit>> checkLocationService();
-  Future<Either<SplashFailure, Unit>> activateLocationService();
+import '../../entities/user.dart';
+import 'splash_screen_failure.dart';
+
+abstract interface class ISplashScreenFacade {
+  Future<Either<SplashScreenFailure, User>> getUserIfItsStoraged();
+  Future<void> setGlobalUser({
+    required User user,
+  });
 }

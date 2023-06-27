@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rapi2/domain/entities/user.dart';
 import 'package:rapi2/domain/value_objects/user_value_objects.dart';
-import 'package:rapi2/infraestructure/data_transfer_objects/user_dto.dart';
+import 'package:rapi2/infraestructure/data_transfer_objects/entities/user_dto.dart';
 
 
 void main() {

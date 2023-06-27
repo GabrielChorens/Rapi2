@@ -226,12 +226,12 @@ class _$_Business implements _Business {
       {required this.id,
       required this.name,
       required this.description,
-      this.phoneNumber,
+      required this.phoneNumber,
       required this.rating,
       required this.address,
-      this.coordinates,
+      required this.coordinates,
       required this.deliveryTime,
-      this.bookingEnabled,
+      required this.bookingEnabled,
       required this.businessPictureURL,
       required final List<Product> products})
       : _products = products;
@@ -320,12 +320,12 @@ abstract class _Business implements Business {
       {required final int id,
       required final String name,
       required final String description,
-      final String? phoneNumber,
+      required final String? phoneNumber,
       required final Rating rating,
       required final String address,
-      final Coordinate? coordinates,
+      required final Coordinate? coordinates,
       required final int deliveryTime,
-      final bool? bookingEnabled,
+      required final bool? bookingEnabled,
       required final String businessPictureURL,
       required final List<Product> products}) = _$_Business;
 

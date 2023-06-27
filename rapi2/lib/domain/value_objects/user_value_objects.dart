@@ -17,7 +17,7 @@ abstract class Name with _$Name {
 ///It also stores the country code.
 ///It provides a full phone number with the plus sign, call code and phone number.
 ///If any of the [NumberAsString] is invalid, it returns a ValueFailure.
-class PhoneNumber extends ValidatedValueObject{
+final class PhoneNumber extends ValidatedValueObject{
 
   @override
   final Either<ValueFailure, String> value;
@@ -25,7 +25,6 @@ class PhoneNumber extends ValidatedValueObject{
   final NumberAsString phoneNumber;
   final String countryCode;
   final String plusSign = '+';
-
 
   factory PhoneNumber({
     required NumberAsString callCode,
@@ -35,9 +34,7 @@ class PhoneNumber extends ValidatedValueObject{
     //Evaluates if there is any invalid input
     if (callCode.value.isLeft()||phoneNumber.value.isLeft()) {
       return PhoneNumber._(
-        left(ValueFailure.invalidPhoneNumber(
-      detailedFailureMessage: 'Offending value: Country code: $countryCode / call code: ${callCode.value.getOrElse(() => "Invalid Value")} / phone number: ${phoneNumber.value.getOrElse(() => "Invalid Value")}'
-        )), callCode, phoneNumber, countryCode
+        left(const InvalidPhoneNumber()), callCode, phoneNumber, countryCode
       );
     } else {
       return PhoneNumber._(
@@ -52,7 +49,7 @@ class PhoneNumber extends ValidatedValueObject{
 
 ///A value object that represents a password. It validates if the password is long enough.
 ///If the password is invalid, it returns a ValueFailure.
-class Password extends ValidatedValueObject<String> {
+final class Password extends ValidatedValueObject<String> {
 
   @override
   final Either<ValueFailure, String> value;
@@ -61,14 +58,14 @@ class Password extends ValidatedValueObject<String> {
 
     if (input.isEmpty) {
       return Password._(
-        left(const ValueFailure.emptyField()),
+        left(const EmptyField()),
       );
     }
 
     //Evaluates if the input is a long enough password
     if (input.length < 6) {
       return Password._(
-        left(ValueFailure.shortPassword(detailedFailureMessage: 'Offending value: $input')),
+        left(const ShortPassword()),
       );
     } else {
       return Password._(right(input));
@@ -79,7 +76,7 @@ class Password extends ValidatedValueObject<String> {
 
 ///A value object that represents an email address. It validates if the email address is valid using a regular expression.
 ///If the email address is invalid, it returns a ValueFailure.
-class Email extends ValidatedValueObject<String>{
+final class Email extends ValidatedValueObject<String>{
   @override
   final Either<ValueFailure, String> value; 
 
@@ -90,7 +87,7 @@ class Email extends ValidatedValueObject<String>{
       return Email._(right(input));
     } else {
       return Email._(
-        left(ValueFailure.invalidEmail(detailedFailureMessage: 'Offending value: $input')),
+        left(const InvalidEmail()),
       );
     }
   }
@@ -99,7 +96,7 @@ class Email extends ValidatedValueObject<String>{
 
 ///A value object that represents a currency. Its responsible for sorting the currenicies recieved from a String.
 ///In case of missing or invalid input, it returns a default currency.
-class Currencies extends ValidatedValueObject{
+final class Currencies extends ValidatedValueObject{
 
   @override
   final Either<ValueFailure, String> value;
@@ -128,14 +125,14 @@ abstract class FirebaseToken with _$FirebaseToken{
 ///A value object used on [PhoneNumber] to validate the call code and phone number.
 ///It recieves a String and evaluates if its a valid number through a regular expression.
 ///If the input is invalid, it returns a ValueFailure.
-class NumberAsString extends ValidatedValueObject {
+final class NumberAsString extends ValidatedValueObject<String> {
   @override
   final Either<ValueFailure, String> value;
 
   factory NumberAsString(String input) {
     if (input.isEmpty) {
       return NumberAsString._(
-        left(const ValueFailure.emptyField()),
+        left(const EmptyField()),
       );
     }
     
@@ -144,8 +141,7 @@ class NumberAsString extends ValidatedValueObject {
       return NumberAsString._(right(input));
     } else {
       return NumberAsString._(
-        left(ValueFailure.invalidNumber(
-            detailedFailureMessage: 'Offending value: $input')),
+        left(const InvalidNumber()),
       );
     }
   }

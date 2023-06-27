@@ -187,8 +187,8 @@ class _$_Product implements _Product {
       required this.description,
       required this.price,
       required this.deliveryTime,
-      this.weight,
-      this.stock,
+      required this.weight,
+      required this.stock,
       required this.pictureURL});
 
   @override
@@ -249,8 +249,8 @@ abstract class _Product implements Product {
       required final String description,
       required final double price,
       required final int deliveryTime,
-      final String? weight,
-      final int? stock,
+      required final String? weight,
+      required final int? stock,
       required final String pictureURL}) = _$_Product;
 
   @override

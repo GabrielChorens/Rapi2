@@ -169,10 +169,10 @@ class _$_User extends _User {
   _$_User(
       {required this.fullName,
       required this.phoneNumber,
-      this.email,
-      this.currency,
-      this.authToken,
-      this.profilePictureURL})
+      required this.email,
+      required this.currency,
+      required this.authToken,
+      required this.profilePictureURL})
       : super._();
 
   @override
@@ -226,10 +226,10 @@ abstract class _User extends User {
   factory _User(
       {required final Name fullName,
       required final PhoneNumber phoneNumber,
-      final Email? email,
-      final Currencies? currency,
-      final String? authToken,
-      final String? profilePictureURL}) = _$_User;
+      required final Email? email,
+      required final Currencies? currency,
+      required final String? authToken,
+      required final String? profilePictureURL}) = _$_User;
   _User._() : super._();
 
   @override

@@ -41,7 +41,7 @@ void main() {
     });
 
     test(
-        'Should return ValueFailure.invalidEmail when input is not a valid email',
+        'Should return InvalidEmail when input is not a valid email',
         () {
       // Arrange
       const input = 'notanemail';
@@ -52,8 +52,7 @@ void main() {
       // Assert
       expect(
           email.value,
-          equals(left(const ValueFailure.invalidEmail(
-              detailedFailureMessage: 'Offending value: $input'))));
+          equals(left(const InvalidEmail())));
     });
   });
 
@@ -92,7 +91,7 @@ void main() {
       expect(phoneNumber.value, equals(right(input)));
     });
 
-    test('Should return ValueFailure.emptyField when input is empty', () {
+    test('Should return EmptyField when input is empty', () {
       // Arrange
       const input = '';
 
@@ -100,11 +99,11 @@ void main() {
       final phoneNumber = NumberAsString(input);
 
       // Assert
-      expect(phoneNumber.value, equals(left(const ValueFailure.emptyField())));
+      expect(phoneNumber.value, equals(left(const EmptyField())));
     });
 
     test(
-        'Should return ValueFailure.invalidNumber when input contains non-digit characters',
+        'Should return InvalidNumber when input contains non-digit characters',
         () {
       // Arrange
       const input = '1234abc567';
@@ -115,23 +114,22 @@ void main() {
       // Assert
       expect(
           phoneNumber.value,
-          equals(left(const ValueFailure.invalidNumber(
-              detailedFailureMessage: 'Offending value: $input'))));
+          equals(left(const InvalidNumber())));
     });
   });
 
   group('Password', () {
-    test('Should return ValueFailure.emptyField when string is empty', () {
+    test('Should return EmptyField when string is empty', () {
       // arrange
       const input = '';
       // act
       var password = Password(input);
       // assert
-      expect(password.value, equals(left(const ValueFailure.emptyField())));
+      expect(password.value, equals(left(const EmptyField())));
     });
 
     test(
-        'Should return ValueFailure.shortPassword when string is less than 6 characters',
+        'Should return ShortPassword when string is less than 6 characters',
         () {
       // arrange
       const input = '12345';
@@ -140,8 +138,7 @@ void main() {
       // assert
       expect(
           password.value,
-          equals(left(const ValueFailure.shortPassword(
-              detailedFailureMessage: 'Offending value: $input'))));
+          equals(left(const ShortPassword())));
     });
 
     test('Should return Password when string is valid', () {
@@ -188,9 +185,7 @@ void main() {
       // Assert
       expect(
           result.value,
-          equals(left(ValueFailure.invalidPhoneNumber(
-              detailedFailureMessage:
-                  'Offending value: Country code: $countryCode / call code: ${callCode.value.getOrElse(() => "Invalid Value")} / phone number: ${phoneNumber.value.getOrElse(() => "Invalid Value")}'))));
+          equals(left(const InvalidPhoneNumber())));
     });
   });
 }

@@ -129,7 +129,7 @@ class _$_Category implements _Category {
       {required this.id,
       required this.name,
       required this.pictureURL,
-      final List<Business>? businesses})
+      required final List<Business>? businesses})
       : _businesses = businesses;
 
   @override
@@ -182,7 +182,7 @@ abstract class _Category implements Category {
       {required final int id,
       required final String name,
       required final String pictureURL,
-      final List<Business>? businesses}) = _$_Category;
+      required final List<Business>? businesses}) = _$_Category;
 
   @override
   int get id;

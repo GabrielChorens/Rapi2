@@ -3,16 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:rapi2/domain/features/auth/auth_failure.dart';
 import 'package:rapi2/domain/value_objects/user_value_objects.dart';
-import 'package:rapi2/infraestructure/device/services/storage/user_storage_service.dart';
+import 'package:rapi2/infraestructure/services/auth_management_service.dart';
+import 'package:rapi2/infraestructure/services/storage/user_storage_service.dart';
 import 'package:rapi2/infraestructure/features/auth/auth_facade.dart';
 import 'package:rapi2/infraestructure/network/api/auth_api_client.dart';
+import 'package:rapi2/infraestructure/network/api/server_responses.dart';
 import 'package:rapi2/infraestructure/network/dio_provider.dart';
 
+import '../../device/mocks/auth_dependency_injection_service.mocks.dart';
 import '../../network/api/mocks/get_storage.mocks.dart';
 
 void main() {
-
-
+  late AuthManagementService authManagementService;
   late DioProvider dioProvider;
   late AuthApiClient authApiClient;
   late AuthFacade authFacade;
@@ -24,7 +26,8 @@ void main() {
     authApiClient = AuthApiClient(dioProvider);
     getStorage = MockGetStorage();
     userStorageService = UserStorageService(getStorage);
-    authFacade = AuthFacade(authApiClient, userStorageService);
+    authManagementService = AuthManagementService(dioProvider, MockAuthDependencyInjectionService());
+    authFacade = AuthFacade(authApiClient, userStorageService, authManagementService);
   });
 
   const testFirebaseToken = FirebaseToken();
@@ -51,7 +54,7 @@ void main() {
     });
 
     test(
-        'Should perform login and return AuthFailure.invalidPhoneNumberAndPasswordCombination provided bad Password',
+        'Should perform login and return InvalidPhoneNumberAndPasswordCombination provided bad Password',
         () async {
       // Arrange
       final testPhoneNumber = PhoneNumber(
@@ -72,17 +75,17 @@ void main() {
       expect(
           result,
           equals(const Left(
-            AuthFailure.invalidPhoneNumberAndPasswordCombination(),
+            InvalidPhoneNumberAndPasswordCombination(),
           )));
     });
 
-    test('Should perform login and return AuthFailure.serverError.',
+    test('Should perform login and return ServerError.',
         //We are simulating a 404 error that cant exist since the phone number is validated before sending the request
         () async {
       // Arrange
       final testPhoneNumber = PhoneNumber(
           callCode: NumberAsString('505'),
-          phoneNumber: NumberAsString('12345678'),
+          phoneNumber: NumberAsString('85626524'),
           countryCode: 'NI');
       final testPassword = Password('12345678');
 
@@ -95,18 +98,15 @@ void main() {
 
       // Assert
       expect(result is Left, true);
-      expect(
-          result,
-          equals(const Left(
-            AuthFailure.serverError(failureDescription: 'not_found'),
-          )));
+      expect(result.fold((l) => l, (_) => _) is ServerError, true);
+      expect(result.fold((l) => l.failureTrace, (_) => _) is NotFound, true);      
     });
   });
 
   group('sign up', () {
     //We are not testing the success case in order to not pollute the database with test data.
     test(
-        'Should return AuthFailure.alreadyRegisteredValue in the unreal case of an already registered phone number',
+        'Should return AlreadyRegisteredValue in the unreal case of an already registered phone number',
         () async {
       // Arrange
       const testName = Name(firstName: 'gabriel', lastName: 'chorens');
@@ -129,7 +129,7 @@ void main() {
       expect(
           result,
           equals(const Left(
-            AuthFailure.alreadyRegisteredValue(),
+            AlreadyRegisteredValue(),
           )));
     });
   });
@@ -149,7 +149,7 @@ void main() {
     });
 
     test(
-        'Should return AuthFailure.alreadyRegisteredValue if the email is already in use',
+        'Should return AlreadyRegisteredValue if the email is already in use',
         () async {
       // Arrange
       final testEmail = Email('gabrielchorens@gmail.com');
@@ -160,7 +160,7 @@ void main() {
       );
 
       // Assert
-      expect(result, equals(const Left(AuthFailure.alreadyRegisteredValue())));
+      expect(result, equals(const Left(AlreadyRegisteredValue())));
     });
   });
 
@@ -182,7 +182,7 @@ void main() {
     });
 
     test(
-        'Should return AuthFailure.alreadyRegisteredValue if the phone number is already in use',
+        'Should return AlreadyRegisteredValue if the phone number is already in use',
         () async {
       // Arrange
       final testPhoneNumber = PhoneNumber(
@@ -196,34 +196,7 @@ void main() {
       );
 
       // Assert
-      expect(result, equals(const Left(AuthFailure.alreadyRegisteredValue())));
-    });
-  });
-
-  //We are not testing resend verification code because there is not much to test with the actual API at 6/9/2023.
-
-  //We are not testing against the real api check Validation code since at 6/9/2023 the API is not sending verifications codes.
-  //All results against the api are successes. Will be tested on the mocked tests.
-
-  group('logout', () {
-    test('Should return Unit if the logout was successful', () async {
-      // Arrange
-      final testPhoneNumber = PhoneNumber(
-          callCode: NumberAsString('505'),
-          phoneNumber: NumberAsString('85883441'),
-          countryCode: 'NI');
-      final testPassword = Password('12345678');
-
-      // Act
-      await authFacade.login(
-        phoneNumber: testPhoneNumber,
-        password: testPassword,
-        firebaseToken: testFirebaseToken,
-      );
-      final result = await authFacade.logout();
-
-      // Assert
-      expect(result, equals(const Right(unit)));
+      expect(result, equals(const Left(AlreadyRegisteredValue())));
     });
   });
 }

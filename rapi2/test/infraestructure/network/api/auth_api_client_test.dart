@@ -4,11 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rapi2/infraestructure/network/api/auth_api_client.dart';
 import 'package:rapi2/infraestructure/network/api/server_responses.dart';
 import 'package:mockito/mockito.dart';
+import 'mocks/dio.mocks.dart';
 import 'mocks/dio_provider_mock.dart';
 
 void main() {
   late MockDioProvider mockDioProvider;
   late AuthApiClient authApiClient;
+  late MockDio dio;
 
   const String testFirstName = 'test';
   const String testLastName = 'test';
@@ -16,27 +18,25 @@ void main() {
   const String testPhoneNumber = '85883441';
   const String testCallCode = '505';
   const String testCountryCode = 'NI';
-  const String testPassword  = '12345678';
+  const String testPassword = '12345678';
   const String testFirebaseToken = '';
   const String testValidationCode = 'test';
 
-
   const String testFullPhoneNumber = '+$testCallCode$testPhoneNumber';
 
-  setUp(() {
+  setUp(() async {
     mockDioProvider = MockDioProvider();
     authApiClient = AuthApiClient(mockDioProvider);
+    dio = mockDioProvider.dio;
   });
 
   group('login', () {
-    test(
-        'Should answer ServerSuccess if the credentials are valid',
-        () async {
+    test('Should answer ServerSuccess if the credentials are valid', () async {
       //Arrange
       Map<String, dynamic> testData = {};
 
       // Configura el método post para que devuelva una respuesta exitosa
-      when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: testData,
               statusCode: 200,
@@ -63,10 +63,10 @@ void main() {
         'Should throw ApiConnectionFailure.notFound if the phone number does not exist',
         () async {
       //Arrange
-      when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenThrow(
-        DioError(
+      when(dio.post(any, data: anyNamed('data'))).thenThrow(
+        DioException(
           requestOptions: RequestOptions(path: 'any'),
-          type: DioErrorType.badResponse,
+          type: DioExceptionType.badResponse,
           response: Response(
             statusCode: 404,
             data: {'message': 'User not found'},
@@ -84,17 +84,17 @@ void main() {
       );
 
       //Assert
-      expect(result, equals(left(const ApiConnectionFailure.notFound())));
+      expect(result, equals(left(const NotFound())));
     });
 
     test(
         'Should throw ApiConnectionFailure.badRequest if the password is incorrect',
         () async {
       //Arrange
-      when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenThrow(
-        DioError(
+      when(dio.post(any, data: anyNamed('data'))).thenThrow(
+        DioException(
           requestOptions: RequestOptions(path: 'any'),
-          type: DioErrorType.badResponse,
+          type: DioExceptionType.badResponse,
           response: Response(
             statusCode: 400,
             data: {'message': 'Invalid Credentials'},
@@ -113,19 +113,18 @@ void main() {
       );
 
       //Assert
-      expect(
-          result,
-          equals(left(const ApiConnectionFailure.badRequest(
-              detailedMessage: 'Invalid Credentials'))));
+      expect(result.isLeft(), true);
+      expect(result.fold((l) => l, (_) => _) is BadRequest, true);
+      expect(result.fold((l) => l.failureTrace, (_) => _),
+          equals(const MessageFromServer(message: 'Invalid Credentials')));
     });
   });
 
   group('signUp', () {
-      test(
-        'Should answer Serversuccess when appropiate values are sended',
+    test('Should answer Serversuccess when appropiate values are sended',
         () async {
       //Arrange
-     when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: {'message': 'User created successfully'},
               statusCode: 201,
@@ -155,13 +154,15 @@ void main() {
         'Should throw an ApiConecctionFailure.badRequest when an already registered user tries to Sign Up',
         () async {
       //Arrange
-      when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenThrow(
-        DioError(
+      when(dio.post(any, data: anyNamed('data'))).thenThrow(
+        DioException(
           requestOptions: RequestOptions(path: 'any'),
-          type: DioErrorType.badResponse,
+          type: DioExceptionType.badResponse,
           response: Response(
             statusCode: 400,
-            data: {'message': ['phone_number: Already exist']},
+            data: {
+              'message': ['phone_number: Already exist']
+            },
             requestOptions: RequestOptions(path: 'any'),
           ),
         ),
@@ -178,22 +179,20 @@ void main() {
         password: testPassword,
         firebaseToken: testFirebaseToken,
       );
-
       //Assert
       expect(
-          result,
-          equals(left(const ApiConnectionFailure.badRequest(
-              detailedMessage: 'phone_number: Already exist'))));
+          result.fold((l) => l.failureTrace, (_) => _),
+          equals(
+              const MessageFromServer(message: 'phone_number: Already exist')));
     });
-   });
+  });
 
-   
   group('checkEmailAvailability', () {
     test(
         'Should answer ServerSuccess if the email its not registered in the database',
         () async {
       //Arrange
-        when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: {'email': false},
               statusCode: 200,
@@ -211,7 +210,7 @@ void main() {
         'Should throw ApiConnectionFailure.alreadyRegisteredValue if the email its already registered',
         () async {
       //Arrange
-         when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: {'email': true},
               statusCode: 200,
@@ -222,16 +221,16 @@ void main() {
         email: testEmail,
       );
       //Assert
-      expect(result, equals(left(const ApiConnectionFailure.alreadyRegisteredValue())));
+      expect(result, equals(left(const AlreadyRegistered())));
     });
   });
 
-   group('checkPhoneNumberAvailability', () {
+  group('checkPhoneNumberAvailability', () {
     test(
         'Should answer ServerSuccess if the phone number its not registered in the database',
         () async {
       //Arrange
-         when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: {'phone_number': false},
               statusCode: 200,
@@ -249,7 +248,7 @@ void main() {
         'Should throw ApiConnectionFailure.alreadyRegisteredValue if the phone number its already registered',
         () async {
       //Arrange
-         when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: {'phone_number': true},
               statusCode: 200,
@@ -260,19 +259,18 @@ void main() {
         phoneNumber: testFullPhoneNumber,
       );
       //Assert
-      expect(result,
-          equals(left(const ApiConnectionFailure.alreadyRegisteredValue())));
+      expect(result, equals(left(const AlreadyRegistered())));
     });
   });
 
-  //No need to test request validation code since it can only accept an already validated Phone Number 
+  //No need to test request validation code since it can only accept an already validated Phone Number
 
-   group('Check validation code', () {
+  group('Check validation code', () {
     test(
         'Should answer ServerSuccess if the validation code is correct according to the phone number',
         () async {
       //Arrange
-       when(mockDioProvider.dio.post(any, data: anyNamed('data'))).thenAnswer(
+      when(dio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Response(
               data: 'true',
               statusCode: 200,
@@ -280,15 +278,15 @@ void main() {
 
       //Act
       final result = await authApiClient.checkValidationCode(
+        countryCode: testCountryCode,
         phoneNumber: testPhoneNumber,
         callCode: testCallCode,
         validationCode: testValidationCode,
       );
       //Assert
-      expect(result, equals(right(const ServerSuccess())) );
+      expect(result, equals(right(const ServerSuccess())));
     });
 
     //At the moment 6/7/2023 the server does not return any error if the validation code is incorrect
-    
   });
 }

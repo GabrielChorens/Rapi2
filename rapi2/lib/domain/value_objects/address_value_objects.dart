@@ -17,7 +17,7 @@ abstract class RawCoordinate with _$RawCoordinate{
 ///A value object that represents a coordinate. It validates if the latitude and longitude are valid.
 ///The latitude must be between -90 and 90, and the longitude must be between -180 and 180.
 ///If the coordinates are invalid, it returns a ValueFailure.
-class Coordinate extends ValidatedValueObject<RawCoordinate> {
+final class Coordinate extends ValidatedValueObject<RawCoordinate> {
 
   @override
   final Either<ValueFailure, RawCoordinate> value;
@@ -25,7 +25,7 @@ class Coordinate extends ValidatedValueObject<RawCoordinate> {
   factory Coordinate(double longitude, double latitude) {
     if (longitude < -180 || longitude > 180 || latitude < -90 || latitude > 90) {
       return Coordinate._(
-        left(ValueFailure.invalidCoordinates(detailedFailureMessage: 'longitude: $longitude, latitude: $latitude. Longitude must be between -180 and 180, latitude must be between -90 and 90')),
+        left(const InvalidCoordinates()),
       );
     }
 

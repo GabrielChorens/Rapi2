@@ -14,7 +14,7 @@ void main() {
       final result = ValidationCode(input);
 
       // Assert
-      expect(result.value, equals(left(const ValueFailure.emptyField())));
+      expect(result.value, equals(left(const EmptyField())));
     });
 
     test('Should return input when it is not empty', () {
