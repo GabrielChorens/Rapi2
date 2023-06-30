@@ -1,0 +1,9 @@
+#Connection failure dialog
+connectionFailureDialog: 
+  title: ¡Vaya!
+  content: Ha ocurrido un error inesperado en la conexión
+  actionButton: Reintentar
+#Location related
+permissions: Para aprovechar las funcionalidades de ubicacion habilita los permisos
+#Error
+unknownError: Ups! Algo salio mal...

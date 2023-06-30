@@ -1,0 +1,5 @@
+locationDialog: 
+  content1: Activar ubicación
+  content2: Podemos mostrarte los negocios más cercanos a tu ubicación
+  ignore: No, gracias 
+  activate: Activar
