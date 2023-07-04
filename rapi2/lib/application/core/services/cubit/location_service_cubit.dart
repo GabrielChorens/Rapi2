@@ -14,7 +14,7 @@ class LocationServiceCubit extends Cubit<LocationServiceState> {
   LocationServiceCubit(this._servicesFacade) : super(const LocationServiceState.initial());
   
 
-  void checkLocationStatus() async{
+  Future<void> checkLocationStatus() async{
     final result = await _servicesFacade.checkLocationServiceStatus();
     result.fold(
       (l) => emit(const LocationServiceState.locationOff()),
@@ -22,7 +22,7 @@ class LocationServiceCubit extends Cubit<LocationServiceState> {
     );
   }
 
-  void activateLocation() async{
+  Future<void> activateLocation() async{
     final result = await _servicesFacade.activateLocationService();
     result.fold(
       (serviceFailure) {

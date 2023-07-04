@@ -18,18 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ConnectionStatusState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() online,
     required TResult Function() offline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? online,
     TResult? Function()? offline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? online,
     TResult Function()? offline,
     required TResult orElse(),
@@ -37,18 +40,21 @@ mixin _$ConnectionStatusState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Online value) online,
     required TResult Function(_Offline value) offline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Online value)? online,
     TResult? Function(_Offline value)? offline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Online value)? online,
     TResult Function(_Offline value)? offline,
     required TResult orElse(),
@@ -73,6 +79,113 @@ class _$ConnectionStatusStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_InitialCopyWith<$Res> {
+  factory _$$_InitialCopyWith(
+          _$_Initial value, $Res Function(_$_Initial) then) =
+      __$$_InitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_InitialCopyWithImpl<$Res>
+    extends _$ConnectionStatusStateCopyWithImpl<$Res, _$_Initial>
+    implements _$$_InitialCopyWith<$Res> {
+  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_Initial implements _Initial {
+  const _$_Initial();
+
+  @override
+  String toString() {
+    return 'ConnectionStatusState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Initial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() online,
+    required TResult Function() offline,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? online,
+    TResult? Function()? offline,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? online,
+    TResult Function()? offline,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Online value) online,
+    required TResult Function(_Offline value) offline,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Online value)? online,
+    TResult? Function(_Offline value)? offline,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Online value)? online,
+    TResult Function(_Offline value)? offline,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initial implements ConnectionStatusState {
+  const factory _Initial() = _$_Initial;
 }
 
 /// @nodoc
@@ -111,6 +224,7 @@ class _$_Online implements _Online {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() online,
     required TResult Function() offline,
   }) {
@@ -120,6 +234,7 @@ class _$_Online implements _Online {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? online,
     TResult? Function()? offline,
   }) {
@@ -129,6 +244,7 @@ class _$_Online implements _Online {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? online,
     TResult Function()? offline,
     required TResult orElse(),
@@ -142,6 +258,7 @@ class _$_Online implements _Online {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Online value) online,
     required TResult Function(_Offline value) offline,
   }) {
@@ -151,6 +268,7 @@ class _$_Online implements _Online {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Online value)? online,
     TResult? Function(_Offline value)? offline,
   }) {
@@ -160,6 +278,7 @@ class _$_Online implements _Online {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Online value)? online,
     TResult Function(_Offline value)? offline,
     required TResult orElse(),
@@ -212,6 +331,7 @@ class _$_Offline implements _Offline {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() online,
     required TResult Function() offline,
   }) {
@@ -221,6 +341,7 @@ class _$_Offline implements _Offline {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? online,
     TResult? Function()? offline,
   }) {
@@ -230,6 +351,7 @@ class _$_Offline implements _Offline {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? online,
     TResult Function()? offline,
     required TResult orElse(),
@@ -243,6 +365,7 @@ class _$_Offline implements _Offline {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Online value) online,
     required TResult Function(_Offline value) offline,
   }) {
@@ -252,6 +375,7 @@ class _$_Offline implements _Offline {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Online value)? online,
     TResult? Function(_Offline value)? offline,
   }) {
@@ -261,6 +385,7 @@ class _$_Offline implements _Offline {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Online value)? online,
     TResult Function(_Offline value)? offline,
     required TResult orElse(),

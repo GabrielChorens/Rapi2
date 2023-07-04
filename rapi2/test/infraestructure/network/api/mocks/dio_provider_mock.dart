@@ -9,12 +9,10 @@ class MockDioProvider implements DioProvider {
   
   @override
   void removeHeader() {
-    // TODO: implement removeHeader
   }
   
   @override
   void setHeader(String? authToken) {
-    // TODO: implement setHeader
   }
 
 }

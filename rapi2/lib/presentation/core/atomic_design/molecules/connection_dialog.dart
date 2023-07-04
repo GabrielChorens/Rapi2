@@ -11,10 +11,9 @@ class ConnectionDialog extends StatelessWidget {
       title: Text(i18n.core.connection_failure_dialog.title),
       content: Text(i18n.core.connection_failure_dialog.content),
       actions: [
-        TextButton(
+        OutlinedButton(
           onPressed: 
             onRetry,
-          
           child: Text(i18n.core.connection_failure_dialog.action_button),
         ),
       ],

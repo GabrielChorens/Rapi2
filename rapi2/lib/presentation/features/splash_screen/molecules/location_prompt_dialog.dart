@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:rapi2/presentation/features/atoms/location_pointer_icon.dart';
 
@@ -6,41 +5,45 @@ import '../../../../i18n/generated/translations.g.dart';
 
 final class LocationPromptDialog extends StatelessWidget {
   final VoidCallback onActivate;
-  const LocationPromptDialog({Key? key, required this.onActivate}) : super(key: key);
+  final VoidCallback onDismiss;
+  const LocationPromptDialog({Key? key, required this.onActivate, required this.onDismiss})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const LocationPointerIcon(),
-      content: Column(
+      title: Column(
         children: [
+          const LocationPointerIcon(),
+          const SizedBox(height: 10),
           Text(
             i18n.splash.location_dialog.content1,
-          ),
-          Text(
-            i18n.splash.location_dialog.content2,
+            textAlign: TextAlign.center,
           ),
         ],
+      ),
+      content: Text(
+        i18n.splash.location_dialog.content2,
+        textAlign: TextAlign.center,
       ),
       actions: [
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextButton(
-                onPressed: onActivate,
-                child: Text(
-                  i18n.splash.location_dialog.activate,
-                ),
+            FilledButton(
+              onPressed: onActivate,
+              child: Text(
+                i18n.splash.location_dialog.activate,
               ),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  i18n.splash.location_dialog.ignore,
-                ),
+            ),
+            const SizedBox(height: 10),
+            OutlinedButton(
+              onPressed: onDismiss,
+              child: Text(
+                i18n.splash.location_dialog.ignore,
               ),
+            ),
           ],
         ),
       ],

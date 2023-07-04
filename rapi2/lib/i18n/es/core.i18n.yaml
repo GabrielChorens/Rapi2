@@ -3,6 +3,7 @@ connectionFailureDialog:
   title: ¡Vaya!
   content: Ha ocurrido un error inesperado en la conexión
   actionButton: Reintentar
+  snackbar: No hay conexión a internet
 #Location related
 permissions: Para aprovechar las funcionalidades de ubicacion habilita los permisos
 #Error

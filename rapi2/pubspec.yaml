@@ -20,6 +20,8 @@ dependencies:
   flutter_native_splash: ^2.3.1
   iconsax: ^0.0.8
   animated_snack_bar: ^0.3.1
+  google_fonts: ^5.1.0
+
 
 # Lang dependencies  
   recase: ^4.1.0
@@ -41,7 +43,9 @@ dependencies:
 
 # Network dependencies
   dio: ^5.1.2
-  connectivity_plus: ^4.0.1
+  internet_connection_checker: ^1.0.0+1
+  internet_connection_checker_plus: ^2.0.0
+
 
 # Location dependencies
   geolocator: ^9.0.2
@@ -53,6 +57,7 @@ dependencies:
   logging: ^1.0.0
 
 # Router
+  go_router: ^9.0.0
   auto_route: ^7.5.0
 
 # Flutter dependencies
@@ -89,11 +94,11 @@ flutter:
     - assets/frames/
     - assets/icons/
   
-  fonts:
-    - family: Urbanist
-      fonts:
-        - asset: fonts/Urbanist-Regular.ttf
-        - asset: fonts/Urbanist-Bold.ttf
-          weight: 700
-        - asset: fonts/Urbanist-SemiBold.ttf
-          weight: 600
+  # fonts:
+  #   - family: Urbanist
+  #     fonts:
+  #       - asset: assets/fonts/Urbanist-Regular.ttf
+  #       - asset: assets/fonts/Urbanist-Bold.ttf
+  #         weight: 700
+  #       - asset: assets/fonts/Urbanist-SemiBold.ttf
+  #         weight: 600

@@ -1,198 +1,165 @@
 // ignore_for_file: unused_field
 
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-@injectable
 final class Rapi2Themes {
-  ThemeData get rapi2LightThemeData => ThemeData(
-        textTheme: _textTheme,
-        colorScheme: _lightTheme,
-        splashColor: _splashColor,
-        focusColor: _focusColor,
-        dividerColor: _dividerColor,
-        useMaterial3: true,
-        dialogTheme: _dialogThemeData,
-        fontFamily: _fontFamily,
-        textButtonTheme: _getTextButtonTheme(_lightTheme),
-        outlinedButtonTheme: _getOutlinedButtonThemeData(_lightTheme),
-        iconTheme: _getIconThemeData(_lightTheme),
-      );
+  const Rapi2Themes();
 
-  ThemeData get rapi2DarkThemeData => rapi2LightThemeData.copyWith(
-        colorScheme: _darkTheme,
-        textButtonTheme: _getTextButtonTheme(_darkTheme),
-        outlinedButtonTheme: _getOutlinedButtonThemeData(_darkTheme),
-        iconTheme: _getIconThemeData(_darkTheme)
-      );
-
-  final _lightTheme = const ColorScheme(
-    brightness: Brightness.light,
-    primary: _Colors.primary50P,
-    onPrimary: _Colors.grays80P,
-    primaryContainer: _Colors.grays80P,
-    onPrimaryContainer: _Colors.primary50P,
-    secondary: _Colors.grays30,
-    onSecondary: _Colors.grays10,
-    secondaryContainer: _Colors.grays10,
-    onSecondaryContainer: _Colors.grays40,
-    tertiary: _Colors.primary20,
-    onTertiary: _Colors.primary80,
-    tertiaryContainer: _Colors.primary20,
-    onTertiaryContainer: _Colors.primary80,
-    error: _Colors.error50P,
-    onError: _Colors.error20,
-    errorContainer: _Colors.error20,
-    onErrorContainer: _Colors.error70,
-    background: _Colors.base00,
-    onBackground: _Colors.grays80P,
-    surface: _Colors.grays10,
-    onSurface: _Colors.grays80P,
-    surfaceVariant: _Colors.grays80P,
-    onSurfaceVariant: _Colors.primary80,
-    outline: _Colors.grays30,
-    outlineVariant: _Colors.primary50P,
-    shadow: _Colors.base100,
-    scrim: _Colors.grays80P,
-    inverseSurface: _Colors.primary50P,
-    onInverseSurface: _Colors.grays80P,
-    inversePrimary: _Colors.grays80P,
-    surfaceTint: _Colors.primary20,
-  );
-
-  final _darkTheme = const ColorScheme(
-    brightness: Brightness.dark,
-    primary: _Colors.primary50P,
-    onPrimary: _Colors.grays80P,
-    primaryContainer: _Colors.primary50P,
-    onPrimaryContainer: _Colors.grays80P,
-    secondary: _Colors.grays50,
-    onSecondary: _Colors.grays30,
-    secondaryContainer: _Colors.grays50,
-    onSecondaryContainer: _Colors.grays30,
-    tertiary: _Colors.primary80,
-    onTertiary: _Colors.primary20,
-    tertiaryContainer: _Colors.primary80,
-    onTertiaryContainer: _Colors.primary20,
-    error: _Colors.error50P,
-    onError: _Colors.error20,
-    errorContainer: _Colors.error70,
-    onErrorContainer: _Colors.error20,
-    background: _Colors.grays80P,
-    onBackground: _Colors.base00,
-    surface: _Colors.grays80P,
-    onSurface: _Colors.base00,
-    surfaceVariant: _Colors.primary50P,
-    onSurfaceVariant: _Colors.grays80P,
-    outline: _Colors.grays70,
-    outlineVariant: _Colors.primary50P,
-    shadow: _Colors.grays70,
-    scrim: _Colors.grays80P,
-    inverseSurface: _Colors.primary50P,
-    onInverseSurface: _Colors.grays80P,
-    inversePrimary: _Colors.grays80P,
-    surfaceTint: _Colors.primary20,
-  );
-
-  final _textTheme = const TextTheme(
-    displayLarge: _TextSyles.display3,
-    displayMedium: _TextSyles.display2,
-    displaySmall: _TextSyles.display1,
-    headlineLarge: _TextSyles.headline,
-    titleLarge: _TextSyles.title,
-    headlineSmall: _TextSyles.label,
-    bodyMedium: _TextSyles.body2,
-    bodySmall: _TextSyles.body1,
-    labelLarge: _TextSyles.caption,
-    labelMedium: _TextSyles.button,
-    labelSmall: _TextSyles.error,
-  );
-
-  final _splashColor = const Color(0xFFFCF4CA); // primary20
-  final _focusColor = const Color(0xFFF5D437); // primary50P
-  final _dividerColor = const Color(0xFFB3B3B3); // grays30
-  final _useMaterial3 = true;
-  final _fontFamily = 'Urbanist';
-
-  final _dialogThemeData = DialogTheme(
-    elevation: 24.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(34.0),
-    ),
-    titleTextStyle: _TextSyles.headline,
-    contentTextStyle: _TextSyles.label,
-    alignment: Alignment.center,
-  );
-
-
-
-
-  TextButtonThemeData _getTextButtonTheme(ColorScheme colorScheme) =>
-      TextButtonThemeData(
-          style: _buttonStyle.copyWith(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return colorScheme.secondaryContainer;
-          }
-          return colorScheme.primaryContainer;
-        }),
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return colorScheme.onSecondaryContainer;
-          }
-          return colorScheme.onPrimaryContainer;
-        }),
-      ));
-
-  OutlinedButtonThemeData _getOutlinedButtonThemeData(
-          ColorScheme colorScheme) =>
-      OutlinedButtonThemeData(
-        style: _buttonStyle.copyWith(
-          side: MaterialStateProperty.all(
-            BorderSide(
-              color: colorScheme.outline,
-              width: 1.0,
-            ),
+  ThemeData get rapi2Light => ThemeData.from(
+              colorScheme: _lightTheme,
+              textTheme: _textTheme,
+              useMaterial3: true)
+          .copyWith(
+        dialogTheme: DialogTheme(
+          titleTextStyle: _textTheme.headlineSmall,
+          contentTextStyle: _textTheme.bodyLarge?.copyWith(
+            color: ColorsX.grays50,
           ),
-          foregroundColor: MaterialStateProperty.all(
-            colorScheme.onSurface,
+          alignment: Alignment.center,
+          actionsPadding:
+              const EdgeInsets.fromLTRB(25, 10, 25, 25),
+        ),
+
+        /// [FilledButton] theme
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
+          ),
+        ),
+
+        /// [OutlinedButton] theme
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
           ),
         ),
       );
 
-  IconThemeData _getIconThemeData(ColorScheme colorScheme) => IconThemeData(
-        color: colorScheme.onBackground,
+  ThemeData get rapi2Dark => rapi2Light.copyWith(
+        colorScheme: _darkTheme,
       );
 
-  final _buttonStyle = ButtonStyle(
-    minimumSize: MaterialStateProperty.all(const Size(48.0, double.infinity)),
-    textStyle: MaterialStateProperty.all(_TextSyles.button),
-    padding: MaterialStateProperty.all(
-        const EdgeInsets.symmetric(horizontal: 10.0, vertical: 32.0)),
-    shape: MaterialStateProperty.all(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(48.0),
-      ),
-    ),
+  final _lightTheme = const ColorScheme(
+    brightness: Brightness.light,
+    primary: ColorsX.grays80P,
+    onPrimary: ColorsX.primary50P,
+    primaryContainer: ColorsX.grays80P,
+    onPrimaryContainer: ColorsX.primary50P,
+    secondary: ColorsX.grays30,
+    onSecondary: ColorsX.grays10,
+    secondaryContainer: ColorsX.grays10,
+    onSecondaryContainer: ColorsX.grays40,
+    tertiary: ColorsX.primary20,
+    onTertiary: ColorsX.primary80,
+    tertiaryContainer: ColorsX.primary20,
+    onTertiaryContainer: ColorsX.primary80,
+    error: ColorsX.error50P,
+    onError: ColorsX.error20,
+    errorContainer: ColorsX.error20,
+    onErrorContainer: ColorsX.error70,
+    background: ColorsX.base00,
+    onBackground: ColorsX.grays80P,
+    surface: ColorsX.grays10,
+    onSurface: ColorsX.grays80P,
+    surfaceVariant: ColorsX.grays80P,
+    onSurfaceVariant: ColorsX.primary80,
+    outline: ColorsX.grays30,
+    outlineVariant: ColorsX.primary50P,
+    shadow: ColorsX.base100,
+    scrim: ColorsX.grays80P,
+    inverseSurface: ColorsX.primary50P,
+    onInverseSurface: ColorsX.grays80P,
+    inversePrimary: ColorsX.grays80P,
+    surfaceTint: ColorsX.primary20,
   );
 
-  ///Possible addittions
+  final _darkTheme = const ColorScheme(
+    brightness: Brightness.dark,
+    primary: ColorsX.grays80P,
+    onPrimary: ColorsX.primary50P,
+    primaryContainer: ColorsX.primary50P,
+    onPrimaryContainer: ColorsX.grays80P,
+    secondary: ColorsX.grays50,
+    onSecondary: ColorsX.grays30,
+    secondaryContainer: ColorsX.grays50,
+    onSecondaryContainer: ColorsX.grays30,
+    tertiary: ColorsX.primary80,
+    onTertiary: ColorsX.primary20,
+    tertiaryContainer: ColorsX.primary80,
+    onTertiaryContainer: ColorsX.primary20,
+    error: ColorsX.error50P,
+    onError: ColorsX.error20,
+    errorContainer: ColorsX.error70,
+    onErrorContainer: ColorsX.error20,
+    background: ColorsX.grays80P,
+    onBackground: ColorsX.base00,
+    surface: ColorsX.grays80P,
+    onSurface: ColorsX.base00,
+    surfaceVariant: ColorsX.primary50P,
+    onSurfaceVariant: ColorsX.grays80P,
+    outline: ColorsX.grays70,
+    outlineVariant: ColorsX.primary50P,
+    shadow: ColorsX.grays70,
+    scrim: ColorsX.grays80P,
+    inverseSurface: ColorsX.primary50P,
+    onInverseSurface: ColorsX.grays80P,
+    inversePrimary: ColorsX.grays80P,
+    surfaceTint: ColorsX.primary20,
+  );
 
-// InputDecorationTheme? inputDecorationTheme
-// ScrollbarThemeData? scrollbarTheme
-// BottomNavigationBarThemeData? bottomNavigationBarTheme
-// BottomSheetThemeData? bottomSheetTheme
-// DrawerThemeData? drawerTheme
-// DropdownMenuThemeData? dropdownMenuTheme
-// ElevatedButtonThemeData? elevatedButtonTheme
-// IconButtonThemeData? iconButtonTheme
-// ListTileThemeData? listTileTheme
-// SearchBarThemeData? searchBarTheme
-// SearchViewThemeData? searchViewTheme
-// FilledButtonThemeData? filledButtonTheme
+  TextTheme get _textTheme {
+    final font = GoogleFonts.urbanistTextTheme();
+    return font.copyWith(
+      displayLarge: font.displayLarge?.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 56,
+      ),
+      displayMedium: font.displayMedium?.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 45,
+      ),
+      displaySmall: font.displaySmall?.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 34,
+      ),
+      headlineSmall: font.headlineSmall?.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 24,
+      ),
+      titleLarge: font.titleLarge?.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 20,
+      ),
+      bodyLarge: font.bodyLarge?.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+      ),
+      bodyMedium: font.bodyMedium?.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      ),
+      bodySmall: font.bodySmall?.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+      labelLarge: font.labelLarge?.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
+      ),
+      labelMedium: font.labelMedium?.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 14,
+      ),
+      labelSmall: font.labelSmall?.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 10,
+      ),
+    );
+  }
 }
 
-abstract final class _Colors {
+extension ColorsX on Colors {
   // Base
   static const Color base100 = Color(0xFF000000);
   static const Color base00 = Color(0xFFFFFFFF);
@@ -240,22 +207,4 @@ abstract final class _Colors {
   static const Color error80 = Color(0xFF8D0E07);
   static const Color error90 = Color(0xFF5C0905);
   static const Color error100 = Color(0xFF2C0402);
-}
-
-abstract final class _TextSyles {
-  static const display3 =
-      TextStyle(fontSize: 56.0, fontWeight: FontWeight.normal);
-  static const display2 =
-      TextStyle(fontSize: 45.0, fontWeight: FontWeight.normal);
-  static const display1 =
-      TextStyle(fontSize: 34.0, fontWeight: FontWeight.normal);
-  static const headline =
-      TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600);
-  static const title = TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600);
-  static const label = TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal);
-  static const body2 = TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600);
-  static const body1 = TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal);
-  static const caption = TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600);
-  static const button = TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600);
-  static const error = TextStyle(fontSize: 10.0, fontWeight: FontWeight.normal);
 }

@@ -13,7 +13,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
   SplashScreenCubit(this._iSplashScreenFacade)
       : super(const SplashScreenState.initial());
 
-  void manageAuthStatus() async {
+  Future<void> manageAuthStatus() async {
     final result = await _iSplashScreenFacade.getUserIfItsStoraged();
     result.fold(
       (l) => emit(const SplashScreenState.userUnauthenticated()),

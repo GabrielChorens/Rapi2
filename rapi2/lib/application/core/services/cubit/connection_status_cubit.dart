@@ -10,9 +10,9 @@ part 'connection_status_cubit.freezed.dart';
 @lazySingleton
 class ConnectionStatusCubit extends Cubit<ConnectionStatusState> {
   final IServicesFacade _servicesFacade;
-  ConnectionStatusCubit(this._servicesFacade) : super(const ConnectionStatusState.offline());
+  ConnectionStatusCubit(this._servicesFacade) : super(const ConnectionStatusState.initial());
   
-  void checkOnlineStatus() async{
+  Future<void> checkOnlineStatus() async{
     final result = await _servicesFacade.checkConnecctionServiceStatus();
     result.fold(
       (l) => emit(const ConnectionStatusState.offline()),

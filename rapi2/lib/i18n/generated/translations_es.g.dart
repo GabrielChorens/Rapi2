@@ -61,6 +61,7 @@ class _TranslationsCoreConnectionFailureDialogEs {
 	String get title => '¡Vaya!';
 	String get content => 'Ha ocurrido un error inesperado en la conexión';
 	String get action_button => 'Reintentar';
+	String get snackbar => 'No hay conexión a internet';
 }
 
 // Path: splash.location_dialog

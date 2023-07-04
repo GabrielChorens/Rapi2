@@ -1,20 +1,11 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
+//import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+
 
 @lazySingleton
-class InternetConnectionStatusService{
+class InternetConnectionStatusService {
 
-  final Connectivity _connectivity;
+  Future<bool> get isConnected async => await InternetConnection().hasInternetAccess;
   
-  InternetConnectionStatusService(this._connectivity);
-
-  Future<bool> get isConnected async {
-    final connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    }
-    else{
-      return false;
-    }
   }
-}
