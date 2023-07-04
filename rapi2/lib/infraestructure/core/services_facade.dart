@@ -66,7 +66,7 @@ class ServicesFacade implements IServicesFacade {
   ///It returns either unit when is connected or a [InternetConnectionFailure] failure when is not connected.
   @override
   Future<Either<ServiceFailure, Unit>> checkConnecctionServiceStatus() async {
-    final booleanResult = await _internetConnectionStatusService.isConnected;
+    final booleanResult = await _internetConnectionStatusService.isConnected();
     return booleanResult
         ? right(unit)
         : left(const InternetConnectionFailure());

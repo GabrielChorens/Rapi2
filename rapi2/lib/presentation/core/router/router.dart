@@ -13,17 +13,26 @@ final class RootRouter {
   GoRouter get router {
     return GoRouter(
       redirect: (context, state) async {
-        return await context
-            .read<ConnectionStatusCubit>()
-            .checkOnlineStatus()
-            .then((_) {
-          bool isOffline = context.read<ConnectionStatusCubit>().state ==
-              const ConnectionStatusState.offline();
-          if (isOffline && state.location != '/splash' && !state.location.startsWith('/connection')) {
-            return '/connection/${Uri.encodeComponent(state.location)}';
-          }
+      
+        bool isNotInitialScreenNorConnectionFailureScreen =
+            state.location != '/splash' &&
+                !state.location.startsWith('/connection');
+
+        if (isNotInitialScreenNorConnectionFailureScreen) {
+          return await context
+              .read<ConnectionStatusCubit>()
+              .checkOnlineStatus()
+              .then((_) {
+            bool isOffline = context.read<ConnectionStatusCubit>().state ==
+                const ConnectionStatusState.offline();
+            if (isOffline) {
+              return '/connection/${Uri.encodeComponent(state.location)}';
+            }
+            return null;
+          });
+        }else{
           return null;
-        });
+        }
       },
       initialLocation: '/splash',
       redirectLimit: 50,
@@ -31,7 +40,8 @@ final class RootRouter {
         GoRoute(
           path: '/connection/:pendingRoute',
           builder: (BuildContext context, GoRouterState state) =>
-               ConnectionCheck( pendingRoute: state.pathParameters['pendingRoute']),
+              ConnectionCheck(
+                  pendingRoute: state.pathParameters['pendingRoute']),
         ),
         GoRoute(
           path: '/splash',
